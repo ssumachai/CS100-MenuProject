@@ -5,12 +5,12 @@
 
 class Ingredients : public Base {
 	private:
-		double price;
+		double value;
 		std::string name;
 	public:
-		Ingredients(std::string str, double val){name = str; price = val;}
-		virtual double price(){return price;}
-		virtual std::string receipt{return name;}
+		Ingredients(std::string str, double val){name = str; value = val;}
+		double price(){return value;}
+		std::string receipt(){return name;}
 };
 
 #endif // __INGREDIENTS_HPP__

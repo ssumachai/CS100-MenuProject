@@ -9,7 +9,7 @@ class Veggies : public Base{
 		std::vector<Ingredients*> selection;
 	public:
 		Veggies(){
-			char input = '';
+			char input;
 			std::cout << "Tomatoes? (Y/N): ";
 			std::cin >> input;
 			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("TOMATOES", 0.00));}
@@ -35,7 +35,7 @@ class Veggies : public Base{
 			else{}
 		}
 		Veggies(char (*c)[4]){				
-			char input = '';
+			char input;
 			
 			input = (*c)[0];
 			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("TOMATOES", 0.00));}
@@ -57,13 +57,13 @@ class Veggies : public Base{
 			else if(input == 'N' || input == 'n'){selections.push_back(new Ingredients("NO ONIONS", 0.00));} 
 			else{}
 		}
-	virtual double price(){return 0.00};
+	virtual double price(){return 0.00;}
 	virtual std::string receipt(){
 		std::string str = "";
 		for(unsigned i = 0; i < 3; i++){
 			str = str + selection.at(i)->receipt() + std::endl;
 		}
-		str = str + selection.at(3);
+		str = str + selection.at(3)->receipt();
 		return str;
 	}
 };
