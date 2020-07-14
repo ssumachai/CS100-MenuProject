@@ -5,7 +5,12 @@
 
 class Base{
 	public:
+		//Constructors
 		Base(){}
+		
+		//Pure Virtual Functions
+		virtual double price() = 0;
+		virtual std::string receipt() = 0;
 };
 
 #endif // __BASE_HPP__
