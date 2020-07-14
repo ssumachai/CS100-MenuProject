@@ -11,6 +11,20 @@ Foodservice is a growing industry, and as restaurants get more and more advanced
 
 This project will be coded primarily in C++.  The README. will be updated along the way, with all important aspects highlighted during the developmental process.  All inputs and outputs will be menu items that are sold primarily on the UCR Campus.  Example restaurants include Emerbees, Sizzle, Savor, and other UCR-exclusive restaurants.
 
+Our program will utilize a simple interface that involves the implementation of `price()` and `receipt()` accross multiple design patterns.  The first function will return the comprehensive price of the item purchased, while the second will return the string receipt representation of the order.  The functions are described in `base.hpp`
+
+```c++
+class Base{
+	public:
+		//Constructors
+		Base(){}
+		
+		//Pure Virtual Functions
+		virtual double price() = 0;
+		virtual std::string receipt() = 0;
+};
+```
+
 # Utilization of Composite Pattern 
 
 Many foods are composed of smaller, more functional foods.  For simplicity, we will limiting the items on our menu to staples at certain restaurants.  In this case, guests will have the option of a Cheeseburger Basket, Wing Basket, or a Salad.
