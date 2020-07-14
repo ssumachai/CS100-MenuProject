@@ -3,7 +3,7 @@
 > Author: Sumachai Suksanguan, Karsten Fields
 
 
-The two of us plan on creating a Menu Application that will utilize Composite, Decorator, and Abstract Factory Design Patterns.
+The two of us plan on creating a Menu Application that will utilize Composite, Decorator, and Strategy Design Patterns.
 
 # Premise
 
