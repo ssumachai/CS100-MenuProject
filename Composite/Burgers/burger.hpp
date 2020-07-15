@@ -1,7 +1,7 @@
 #ifndef __BURGER_HPP__
 #define __BURGER_HPP__
 
-#include "ingredients.hpp"
+#include "../ingredients.hpp"
 #include <vector>
 
 class Burger : public Base{

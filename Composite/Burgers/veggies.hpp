@@ -2,7 +2,7 @@
 #define __VEGGIES_HPP__
 
 #include <vector>
-#include "ingredients.hpp"
+#include "../ingredients.hpp"
 
 class Veggies : public Base{
 	private:

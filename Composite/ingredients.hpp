@@ -1,7 +1,7 @@
 #ifndef __INGREDIENTS_HPP__
 #define __INGREDIENTS_HPP__
 
-#include "../base.hpp"
+#include "base.hpp"
 
 class Ingredients : public Base {
 	private:

@@ -1,5 +1,5 @@
 #include "Composite/base.hpp"
-#include "Composite/Burgers/ingredients.hpp"
+#include "Composite/ingredients.hpp"
 #include "Composite/Burgers/veggies.hpp"
 
 int main(){
