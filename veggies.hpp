@@ -1,8 +1,8 @@
 #ifndef __VEGGIES_HPP__
 #define __VEGGIES_HPP__
 
-#include "ingredients.hpp"
 #include <vector>
+#include "ingredients.hpp"
 
 class Veggies : public Base{
 	private:
