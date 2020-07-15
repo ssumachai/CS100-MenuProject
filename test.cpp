@@ -1,9 +1,14 @@
 #include "gtest/gtest.h"
 #include "base.hpp"
+#include "veggies.hpp"
 #include <iostream>
 
-TEST(Something, Blah){
-	EXPECT_EQ(1,1);
+TEST(VeggieTest, ArrayInput){
+	char array[4] = {'Y','Y','Y','Y'};
+	Veggies* test_val = new Veggies(array);
+
+	EXPECT_EQ(test_val->price(), 0);
+	EXPECT_EQ(test_val->receipt(), "TOMATOES\nLETTUCE\nPICKLES\nONIONS");
 }
 
 int main(int argc, char **argv){

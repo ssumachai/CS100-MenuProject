@@ -34,25 +34,25 @@ class Veggies : public Base{
 			else if(input == 'N' || input == 'n'){selection.push_back(new Ingredients("NO ONIONS", 0.00));} 
 			else{}
 		}
-		Veggies(char (*c)[4]){				
+		Veggies(char c[4]){				
 			char input;
 			
-			input = (*c)[0];
+			input = c[0];
 			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("TOMATOES", 0.00));}
 			else if(input == 'N' || input == 'n'){selection.push_back(new Ingredients("NO TOMATOES", 0.00));} 
 			else{}
 			
-			input = (*c)[1];
+			input = c[1];
 			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("LETTUCE", 0.00));}
 			else if(input == 'N' || input == 'n'){selection.push_back(new Ingredients("NO LETTUCE", 0.00));} 
 			else{}
 			
-			input = (*c)[2];
+			input = c[2];
 			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("PICKLES", 0.00));}
 			else if(input == 'N' || input == 'n'){selection.push_back(new Ingredients("NO PICKLES", 0.00));} 
 			else{}
 			
-			input = (*c)[3];
+			input = c[3];
 			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("ONIONS", 0.00));}
 			else if(input == 'N' || input == 'n'){selection.push_back(new Ingredients("NO ONIONS", 0.00));} 
 			else{}
@@ -61,7 +61,7 @@ class Veggies : public Base{
 	virtual std::string receipt(){
 		std::string str = "";
 		for(unsigned i = 0; i < 3; i++){
-			str = str + selection.at(i)->receipt() + std::endl;
+			str = str + selection.at(i)->receipt() + '\n';
 		}
 		str = str + selection.at(3)->receipt();
 		return str;
