@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "base.hpp"
 #include "veggies.hpp"
+#include "extras.hpp"
 #include <iostream>
 
 TEST(VeggieTest, ArrayInput){
@@ -14,13 +15,33 @@ TEST(VeggieTest, ArrayInput){
         Veggies* test2 = new Veggies(array2);                                                                                                   
         
 	EXPECT_EQ(test2->price(), 0);                                             
-        EXPECT_EQ(test2->receipt(), "NO TOMATOES\nNO LETTUCE\nNO PICKLES\nNO ONIONS");
+        EXPECT_EQ(test2->receipt(), "NO VEGGIES");
 
         char array3[4] = {'Y','N','Y','N'};
         Veggies* test3 = new Veggies(array3);                                                                                                   
         
 	EXPECT_EQ(test3->price(), 0); 
-        EXPECT_EQ(test3->receipt(), "TOMATOES\nNO LETTUCE\nPICKLES\nNO ONIONS");          
+        EXPECT_EQ(test3->receipt(), "TOMATOES\nPICKLES");          
+}
+
+TEST(ExtraTest, ArrayInput){
+	char array1[3] = {'Y', 'Y', 'Y'};
+	Extras* test1 = new Extras(array1);
+	
+	EXPECT_DOUBLE_EQ(test1->price(), 4.00);
+	EXPECT_EQ(test1->receipt(), "EXTRA PATTY\nBACON\nEXTRA CHEESE");
+
+	char array2[3] = {'N', 'N', 'N'};  
+        Extras* test2 = new Extras(array2);
+	
+	EXPECT_DOUBLE_EQ(test2->price(), 0.00);
+	EXPECT_EQ(test2->receipt(), "NO EXTRAS");
+
+	char array3[3] = {'Y', 'N', 'Y'};
+	Extras* test3 = new Extras(array3);
+
+	EXPECT_DOUBLE_EQ(test3->price(), 2.50);
+	EXPECT_EQ(test3->receipt(), "EXTRA PATTY\nEXTRA CHEESE");
 }
 
 int main(int argc, char **argv){

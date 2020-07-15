@@ -2,7 +2,7 @@
 #define __EXTRAS_HPP__
 
 #include <vector>
-#include <ingredients>
+#include "ingredients.hpp"
 
 class Extras : public Base{
 	private:
@@ -14,51 +14,51 @@ class Extras : public Base{
 			while(input != 'y' && input != 'Y' && input != 'n' && input != 'N'){
 				std::cout << "Extra Patty? (Y/N): ";
 				std::cin >> input;
-				if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("EXTRA PATTY", 2.00));} 
+				if(input == 'Y' || input == 'y'){more.push_back(new Ingredients("EXTRA PATTY", 2.00));} 
 				else{}
 			}
 			while(input != 'y' && input != 'Y' && input != 'n' && input != 'N'){
 				std::cout << "Bacon? (Y/N): ";
 				std::cin >> input;
-				if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("BACON", 1.50));}
+				if(input == 'Y' || input == 'y'){more.push_back(new Ingredients("BACON", 1.50));}
 				else{}
 			}
 			while(input != 'y' && input != 'Y' && input != 'n' && input != 'N'){
 				std::cout << "Extra Cheese? (Y/N): ";
 				std::cin >> input;
-				if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("EXTRA CHEESE", 0.50));} 
+				if(input == 'Y' || input == 'y'){more.push_back(new Ingredients("EXTRA CHEESE", 0.50));} 
 				else{}
 			}
 
-			if(more.empty()){selection.push_back(new Ingredients("NO EXTRAS", 0.00));}
+			if(more.empty()){more.push_back(new Ingredients("NO EXTRAS", 0.00));}
 		}
 		Extras(char c[3]){
 			char input;
 			
 			input = c[0];
-			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("EXTRA PATTY", 2.00));}
+			if(input == 'Y' || input == 'y'){more.push_back(new Ingredients("EXTRA PATTY", 2.00));}
 			else{}
 			
 			input = c[1];
-			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("BACON", 1.50));} 
+			if(input == 'Y' || input == 'y'){more.push_back(new Ingredients("BACON", 1.50));} 
 			else{}
 			
 			input = c[2];
-			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("EXTRA CHEESE", 0.00));}
+			if(input == 'Y' || input == 'y'){more.push_back(new Ingredients("EXTRA CHEESE", 0.50));}
 			else{}
 
 			if(more.empty()){more.push_back(new Ingredients("NO EXTRAS", 0.00));}
 		}
 
 		virtual double price(){
-			double sum;
+			double sum = 0.00;
 			for(unsigned i = 0; i < more.size(); i++){sum += more.at(i)->price();}
 			return sum;
 		}
 		virtual std::string receipt(){
 			std::string str;
 			int sz = more.size();
-			for(unsigned i = 0; i < sz - 2; i++){str = str + more.at(i)->receipt() + '\n';}
+			for(unsigned i = 0; i < sz - 1; i++){str = str + more.at(i)->receipt() + '\n';}
 			str += more.at(sz - 1)->receipt();
 			return str;
 		}

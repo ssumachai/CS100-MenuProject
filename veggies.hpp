@@ -36,7 +36,7 @@ class Veggies : public Base{
 				else{}
 			}	
 			
-			if(selection.empty()){selection.push_back(new Ingredient("NO VEGGIES", 0.00));}
+			if(selection.empty()){selection.push_back(new Ingredients("NO VEGGIES", 0.00));}
 		}
 		Veggies(char c[4]){				
 			char input;
@@ -57,13 +57,13 @@ class Veggies : public Base{
 				if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("ONIONS", 0.00));}
 				else{}
 			
-			if(selection.empty()){selection.push_back(new Ingredient("NO VEGGIES", 0.00));}
+			if(selection.empty()){selection.push_back(new Ingredients("NO VEGGIES", 0.00));}
 		}
 	virtual double price(){return 0.00;}
 	virtual std::string receipt(){
 		int sz = selection.size();
 		std::string str = "";
-		for(unsigned i = 0; i < sz - 2; i++){
+		for(unsigned i = 0; i < sz - 1; i++){
 			str = str + selection.at(i)->receipt() + '\n';
 		}
 		str = str + selection.at(sz - 1)->receipt();
