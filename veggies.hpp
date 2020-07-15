@@ -13,25 +13,25 @@ class Veggies : public Base{
 			std::cout << "Tomatoes? (Y/N): ";
 			std::cin >> input;
 			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("TOMATOES", 0.00));}
-			else if(input == 'N' || input == 'n'){selections.push_back(new Ingredients("NO TOMATOES", 0.00));} 
+			else if(input == 'N' || input == 'n'){selection.push_back(new Ingredients("NO TOMATOES", 0.00));} 
 			else{}
 			
 			std::cout << "Lettuce? (Y/N): ";
 			std::cin >> input;
 			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("LETTUCE", 0.00));}
-			else if(input == 'N' || input == 'n'){selections.push_back(new Ingredients("NO LETTUCE", 0.00));} 
+			else if(input == 'N' || input == 'n'){selection.push_back(new Ingredients("NO LETTUCE", 0.00));} 
 			else{}
 			
 			std::cout << "Pickles? (Y/N): ";
 			std::cin >> input;
 			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("PICKLES", 0.00));}
-			else if(input == 'N' || input == 'n'){selections.push_back(new Ingredients("NO PICKLES", 0.00));} 
+			else if(input == 'N' || input == 'n'){selection.push_back(new Ingredients("NO PICKLES", 0.00));} 
 			else{}
 			
 			std::cout << "Onions? (Y/N): ";
 			std::cin >> input;
 			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("ONIONS", 0.00));}
-			else if(input == 'N' || input == 'n'){selections.push_back(new Ingredients("NO ONIONS", 0.00));} 
+			else if(input == 'N' || input == 'n'){selection.push_back(new Ingredients("NO ONIONS", 0.00));} 
 			else{}
 		}
 		Veggies(char (*c)[4]){				
@@ -39,22 +39,22 @@ class Veggies : public Base{
 			
 			input = (*c)[0];
 			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("TOMATOES", 0.00));}
-			else if(input == 'N' || input == 'n'){selections.push_back(new Ingredients("NO TOMATOES", 0.00));} 
+			else if(input == 'N' || input == 'n'){selection.push_back(new Ingredients("NO TOMATOES", 0.00));} 
 			else{}
 			
 			input = (*c)[1];
 			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("LETTUCE", 0.00));}
-			else if(input == 'N' || input == 'n'){selections.push_back(new Ingredients("NO LETTUCE", 0.00));} 
+			else if(input == 'N' || input == 'n'){selection.push_back(new Ingredients("NO LETTUCE", 0.00));} 
 			else{}
 			
 			input = (*c)[2];
 			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("PICKLES", 0.00));}
-			else if(input == 'N' || input == 'n'){selections.push_back(new Ingredients("NO PICKLES", 0.00));} 
+			else if(input == 'N' || input == 'n'){selection.push_back(new Ingredients("NO PICKLES", 0.00));} 
 			else{}
 			
 			input = (*c)[3];
 			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("ONIONS", 0.00));}
-			else if(input == 'N' || input == 'n'){selections.push_back(new Ingredients("NO ONIONS", 0.00));} 
+			else if(input == 'N' || input == 'n'){selection.push_back(new Ingredients("NO ONIONS", 0.00));} 
 			else{}
 		}
 	virtual double price(){return 0.00;}
