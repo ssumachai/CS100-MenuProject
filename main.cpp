@@ -1,6 +1,6 @@
-#include "base.hpp"
-#include "ingredients.hpp"
-#include "veggies.hpp"
+#include "Composite/base.hpp"
+#include "Composite/Burgers/ingredients.hpp"
+#include "Composite/Burgers/veggies.hpp"
 
 int main(){
 	Veggies* test = new Veggies();

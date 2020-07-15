@@ -6,9 +6,9 @@
 
 class Burger : public Base{
 	private:
-		Ingredients* A[3];
+		Base* A[3];
 	public:	
-		Burger(Ingredients* veg, Ingredients* ex, Ingredients* sau){
+		Burger(Base* veg, Base* ex, Base* sau){
 			A[0] = veg;
 			A[1] = ex;
 			A[2] = sau;
