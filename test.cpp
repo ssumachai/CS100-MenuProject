@@ -65,6 +65,31 @@ TEST(SauceTest, ArrayInput){
 	EXPECT_EQ(test3->receipt(), "KETCHUP\nMUSTARD");
 }
 
+TEST(BurgerTest, ArrayInputs){
+	char array1[4] = {'Y','Y','Y','Y'};
+	Veggies* test1 = new Veggies(array1);
+
+	EXPECT_EQ(test1->price(), 0);
+	EXPECT_EQ(test1->receipt(), "TOMATOES\nLETTUCE\nPICKLES\nONIONS");
+
+	char array2[3] = {'N', 'N', 'N'};  
+        Extras* test2 = new Extras(array2);
+	
+	EXPECT_DOUBLE_EQ(test2->price(), 0.00);
+	EXPECT_EQ(test2->receipt(), "NO EXTRAS");
+
+	
+	char array3[3] = {'Y','Y','N'};
+	Sauce* test3 = new Sauce(array3);
+
+	EXPECT_DOUBLE_EQ(test3->price(), 0);
+	EXPECT_EQ(test3->receipt(), "KETCHUP\nMUSTARD");
+	
+	Burger* bigMac = new Burger(test1, test2, test3);
+	EXPECT_DOUBLE_EQ(bigMac->price(), 3.50);
+	EXPECT_EQ(bigMac->receipt(), "PERSONAL BURGER\nADD\nKETCHUP\LETTUCE\nPICKLES\nONIONS\nNO EXTRAS\nKETCHUP\nMUSTARD");
+}
+
 int main(int argc, char **argv){
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
