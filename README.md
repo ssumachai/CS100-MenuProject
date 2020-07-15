@@ -61,6 +61,22 @@ virtual double price(){
 ```
 > Note: Where 3.50 indicates the base price of the burger and A[0], A[1], and A[2] represent the combined prices of the extra ingredients.
 
+```c++
+virtual std::string receipt(){
+	std::string str;
+	str = "PERSONAL BURGER\nADD\n" + A[0]->receipt() + '\n' + A[1]->receipt() + '\n' + A[2]->receipt();	
+	return str;
+}
+```
+Example: A Plain Burger would yield the following output:
+```
+PERSONAL BURGER
+ADD
+NO VEGGIES
+NO EXTRAS
+NO SAUCE
+```
+
 ### Wing Basket
 
 There are so many ways to eat a chicken these days, just as there are as many ways to coat them. The user will be able to select a Chicken Strip Base that will includes: their preffered number of Strips (3/6/9/12), a coating for their strips, fry seasoning, and a dipping sauce.
@@ -72,3 +88,60 @@ Much like the `Burger` subclass, this basket is composed of many of the guests p
 For our guests who would prefer a healthier alternative, our application will allow them to create their own salad.  It is much harder to generalize a salad, so it will mostly be mix and match for our guests.  
 
 As a result, the `Salad` subclass will be composided of the guests: preference of lettuce, additional toppings, protein, and dressing.  Those will be broken down into these subclasses: `Lettuce`, `Toppings`, `Protein`, and `Dressing`.
+
+## Testing Composite Design
+
+Our program will feature tests similar to the tests from `lab-03-composite-pattern` that features the creation of the Larger Ingredient subclasses (`Veggies`, `WingCount`, `WingSauce`, etc) and the direct comparison to static values.  As it is a program designed to be used by a user, we will test it both by the `fun` (main) executable, and the `test` executable.
+
+Notice, that inside the `Burger`, `Wing`, and `Salad` subclasses contain two constructors.  With the first constructor designed for user-input, and the second constructor designed for unit testing.
+
+### Google Testing
+
+```c++
+Sauce(char c[3]){
+	char input;
+			
+	input = c[0];
+	if(input == 'Y' || input == 'y'){lost.push_back(new Ingredients("KETCHUP", 0));}
+	else{}
+			
+	input = c[1];
+	if(input == 'Y' || input == 'y'){lost.push_back(new Ingredients("MUSTARD", 0));} 
+	else{}
+			
+	input = c[2];
+	if(input == 'Y' || input == 'y'){lost.push_back(new Ingredients("A1 SAUCE", 0.50));}
+	else{}
+
+	if(lost.empty()){lost.push_back(new Ingredients("NO SAUCE", 0));}
+}
+```
+> Note : An array containing `{'Y', 'Y', 'Y'}` would construct an `Extras` object that contains an extra patty, bacon, and extra slice of cheese.
+
+Therefore, our `test.cpp` file contains a multitude of tests that utilize that form of construction, from there, objects are tested by directly comparing them to what the sum of their combined ingredients would be. 
+
+```c++
+char array1[3] = {'Y', 'Y', 'Y'};
+Extras* test1 = new Extras(array1);
+	
+EXPECT_DOUBLE_EQ(test1->price(), 4.00);
+EXPECT_EQ(test1->receipt(), "EXTRA PATTY\nBACON\nEXTRA CHEESE");
+```
+
+Naturally, if we were to test larger objects such as `Burger`, we would have to create all 3 required subclasses in `Veggies`. `Extras`, and `Sauce`, then utilize the exact same concept above:
+```c++
+TEST(BurgerTest, PlainBurger){
+	/*
+	
+	------ DEFINE SUBCLASSES HERE -------
+	
+	*/
+
+	Burger* why = new Burger(test1, test2, test3);
+	EXPECT_DOUBLE_EQ(why->price(), 3.50);
+	EXPECT_EQ(why->receipt(), "PERSONAL BURGER\nADD\nNO VEGGIES\nNO EXTRAS\nNO SAUCE");
+}
+```
+### User Testing
+
+Will be written when implemented and developed.
