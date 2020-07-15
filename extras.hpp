@@ -10,20 +10,25 @@ class Extras : public Base{
 	public:
 		Extras(){
 			char input;
-			std::cout << "Extra Patty? (Y/N): ";
-			std::cin >> input;
-			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("EXTRA PATTY", 2.00));} 
-			else{}
 			
-			std::cout << "Bacon? (Y/N): ";
-			std::cin >> input;
-			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("BACON", 1.50));}
-			else{}
-			
-			std::cout << "Extra Cheese? (Y/N): ";
-			std::cin >> input;
-			if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("EXTRA CHEESE", 0.50));} 
-			else{}
+			while(input != 'y' && input != 'Y' && input != 'n' && input != 'N'){
+				std::cout << "Extra Patty? (Y/N): ";
+				std::cin >> input;
+				if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("EXTRA PATTY", 2.00));} 
+				else{}
+			}
+			while(input != 'y' && input != 'Y' && input != 'n' && input != 'N'){
+				std::cout << "Bacon? (Y/N): ";
+				std::cin >> input;
+				if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("BACON", 1.50));}
+				else{}
+			}
+			while(input != 'y' && input != 'Y' && input != 'n' && input != 'N'){
+				std::cout << "Extra Cheese? (Y/N): ";
+				std::cin >> input;
+				if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("EXTRA CHEESE", 0.50));} 
+				else{}
+			}
 
 			if(more.empty()){selection.push_back(new Ingredients("NO EXTRAS", 0.00));}
 		}
@@ -52,8 +57,9 @@ class Extras : public Base{
 		}
 		virtual std::string receipt(){
 			std::string str;
-			for(unsigned i = 0; i < more.size() - 1; i++){str = str + more.at(i)->receipt() + '\n';}
-			str += more.at(more.size() - 1)->receipt();
+			int sz = more.size();
+			for(unsigned i = 0; i < sz - 2; i++){str = str + more.at(i)->receipt() + '\n';}
+			str += more.at(sz - 1)->receipt();
 			return str;
 		}
 };
