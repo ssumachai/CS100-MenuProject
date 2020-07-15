@@ -2,6 +2,7 @@
 #include "base.hpp"
 #include "veggies.hpp"
 #include "extras.hpp"
+#include "sauce.hpp"
 #include <iostream>
 
 TEST(VeggieTest, ArrayInput){
@@ -42,6 +43,26 @@ TEST(ExtraTest, ArrayInput){
 
 	EXPECT_DOUBLE_EQ(test3->price(), 2.50);
 	EXPECT_EQ(test3->receipt(), "EXTRA PATTY\nEXTRA CHEESE");
+}
+
+TEST(SauceTest, ArrayInput){
+	char array1[3] = {'Y', 'Y', 'Y'};
+	Sauce* test1 = new Sauce(array1);
+
+	EXPECT_DOUBLE_EQ(test1->price(), 0.50);
+	EXPECT_EQ(test1->receipt(), "KETCHUP\nMUSTARD\nA1 SAUCE");
+
+	char array2[3] = {'N', 'N', 'N'};
+	Sauce* test2 = new Sauce(array2);
+
+	EXPECT_DOUBLE_EQ(test2->price(), 0);
+	EXPECT_EQ(test2->receipt(), "NO SAUCE");
+	
+	char array3[3] = {'Y','Y','N'};
+	Sauce* test3 = new Sauce(array3);
+
+	EXPECT_DOUBLE_EQ(test3->price(), 0);
+	EXPECT_EQ(test3->receipt(), "KETCHUP\nMUSTARD");
 }
 
 int main(int argc, char **argv){

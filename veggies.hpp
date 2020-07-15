@@ -12,25 +12,25 @@ class Veggies : public Base{
 			char input;
 			
 			while(input != 'y' && input != 'Y' && input != 'n' && input != 'N'){
-				std::cout << "Tomatoes? (Y/N): ";
+				std::cout << "Tomatoes? (FREE) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("TOMATOES", 0.00));}
 				else{}
 			}
 			while(input != 'y' && input != 'Y' && input != 'n' && input != 'N'){
-				std::cout << "Lettuce? (Y/N): ";
+				std::cout << "Lettuce? (FREE) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("LETTUCE", 0.00));}
 				else{}
 			}
 			while(input != 'y' && input != 'Y' && input != 'n' && input != 'N'){
-				std::cout << "Pickles? (Y/N): ";
+				std::cout << "Pickles? (FREE) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("PICKLES", 0.00));}
 				else{}
 			}
 			while(input != 'y' && input != 'Y' && input != 'n' && input != 'N'){
-				std::cout << "Onions? (Y/N): ";
+				std::cout << "Onions? (FREE) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){selection.push_back(new Ingredients("ONIONS", 0.00));} 
 				else{}

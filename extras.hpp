@@ -12,19 +12,19 @@ class Extras : public Base{
 			char input;
 			
 			while(input != 'y' && input != 'Y' && input != 'n' && input != 'N'){
-				std::cout << "Extra Patty? (Y/N): ";
+				std::cout << "Extra Patty? ($2.00) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){more.push_back(new Ingredients("EXTRA PATTY", 2.00));} 
 				else{}
 			}
 			while(input != 'y' && input != 'Y' && input != 'n' && input != 'N'){
-				std::cout << "Bacon? (Y/N): ";
+				std::cout << "Bacon? ($1.50) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){more.push_back(new Ingredients("BACON", 1.50));}
 				else{}
 			}
 			while(input != 'y' && input != 'Y' && input != 'n' && input != 'N'){
-				std::cout << "Extra Cheese? (Y/N): ";
+				std::cout << "Extra Cheese? ($0.50) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){more.push_back(new Ingredients("EXTRA CHEESE", 0.50));} 
 				else{}
