@@ -83,11 +83,15 @@ NO SAUCE
 
 There are so many ways to eat a chicken these days, just as there are as many ways to coat them. The user will be able to select a Chicken Strip Base that will includes: their preffered number of Strips (3/6/9/12), a coating for their strips, fry seasoning, and a dipping sauce.
 
+![Wing_UML](Composite/Wings/wing_composition.png)
+
 Much like the `Burger` subclass, this basket is composed of many of the guests preffered choices.  All of these selections are broken down into the following subclasses: `WingCount`, `WingSauce`, `FrySeasoning`, and `Dipping Sauce`.
 
 ### Salad
 
 For our guests who would prefer a healthier alternative, our application will allow them to create their own salad.  It is much harder to generalize a salad, so it will mostly be mix and match for our guests.  
+
+![Salad_UML](Composite/Salads/salad_composition.png)
 
 As a result, the `Salad` subclass will be composided of the guests: preference of lettuce, additional toppings, protein, and dressing.  Those will be broken down into these subclasses: `Lettuce`, `Toppings`, `Protein`, and `Dressing`.
 
