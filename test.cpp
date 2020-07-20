@@ -417,6 +417,56 @@ TEST(SaladTest, SadSalad){
 	EXPECT_DOUBLE_EQ(why->price(), 2.49);
 	EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nROMAINE LETTUCE WITH\nNO TOPPINGS\nADD\nNO PROTEIN\nWITH NO DRESSING");
 }
+
+TEST(SaladTest, NormalSalad){
+	char array1[9] = {'Y', 'N', 'Y', 'N', 'Y', 'Y', ' Y', 'Y', 'N'};
+	char array2[3] = {'Y', 'N', 'N'};
+	char array3[3] = {'S', 'N'};
+	
+	Lettuce* spring = new Lettuce('S');
+	Toppings* myToppings = new Toppings(array1);
+	Protein* iTry = new Protein(array2);
+	Dressing* heh = new Dressing(array3);
+	
+	EXPECT_DOUBLE_EQ(spring->price(), 2.25);
+	EXPECT_DOUBLE_EQ(myToppings->price(), 1.25);
+	EXPECT_DOUBLE_EQ(iTry->price(), 1.50);
+	EXPECT_DOUBLE_EQ(heh->price(), 0);
+	
+	EXPECT_EQ(spring->receipt(), "SPRING MIX");
+	EXPECT_EQ(myToppings->receipt(), "GRAPE TOMATOES\nCORN\nCROUTONS\nEGG\nCHEESE BLEND\nAVOCADO");
+	EXPECT_EQ(iTry->receipt(), "GRILLED CHICKEN");
+	EXPECT_EQ(oh->receipt(), "SOUTHWEST DRESSING");
+	
+	Salad* why = new Salad(spring, myToppings, iTry, oh);
+	EXPECT_DOUBLE_EQ(why->price(), 6.00);
+	EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nSPRING MIX WITH\nGRAPE TOMATOES\nCORN\nCROUTONS\nEGG\nCHEESE BLEND\nAVOCADO\nADD\nGRILLED CHICKEN\nWITH SOUTHWEST DRESSING");
+}
+
+TEST(SaladTest, MaxSalad){
+	char array1[9] = {'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y'};
+	char array2[3] = {'Y', 'Y', 'Y'};
+	char array3[3] = {'V', 'Y'};
+	
+	Lettuce* kale = new Lettuce('K');
+	Toppings* allToppings = new Toppings(array1);
+	Protein* bigGainz = new Protein(array2);
+	Dressing* oh = new Dressing(array3);
+	
+	EXPECT_DOUBLE_EQ(kale->price(), 3.00);
+	EXPECT_DOUBLE_EQ(allToppings->price(), 2.00);
+	EXPECT_DOUBLE_EQ(bigGainz->price(), 5.25);
+	EXPECT_DOUBLE_EQ(oh->price(), 0);
+	
+	EXPECT_EQ(kale->receipt(), "KALE SLAW");
+	EXPECT_EQ(allToppings->receipt(), "GRAPE TOMATOES\nCUCUMBERS\nCORN\nBLACK BEANS\nCROUTONS\nEGG\nCHEESE BLEND\nAVOCADO\nDICED BACON");
+	EXPECT_EQ(bigGainz->receipt(), "GRILLED CHICKEN\nGRILLED SALMON\nSOY CHICKEN");
+	EXPECT_EQ(oh->receipt(), "BALSAMIC VINEGAR & OLIVE OIL ON SIDE");
+
+	Salad* why = new Salad(kale, allToppings, bigGainz, oh);
+	EXPECT_DOUBLE_EQ(why->price(), 10.25);
+	EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nKALE SLAW WITH\nGRAPE TOMATOES\nCUCUMBERS\nCORN\nBLACK BEANS\nCROUTONS\nEGG\nCHEESE BLEND\nAVOCADO\nDICED BACON\nADD\nGRILLED CHICKEN\nGRILLED SALMON\nSOY CHICKEN\nWITH BALSAMIC VINEGAR & OLIVE OIL ON SIDE");
+}
 	
 int main(int argc, char **argv){
 	::testing::InitGoogleTest(&argc, argv);
