@@ -412,6 +412,10 @@ TEST(SaladTest, SadSalad){
 	EXPECT_EQ(noToppings->receipt(), "NO TOPPINGS");
 	EXPECT_EQ(sadGainz->receipt(), "NO PROTEIN");
 	EXPECT_EQ(dry->receipt(), "NO DRESSING");
+
+	Salad* why = new Salad(romaine, noToppings, sadGainz, dry);
+	EXPECT_DOUBLE_EQ(why->price(), 2.49);
+	EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nROMAINE LETTUCE WITH\nNO TOPPINGS\nADD\nNO PROTEIN\nWITH NO DRESSING");
 }
 	
 int main(int argc, char **argv){

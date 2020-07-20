@@ -15,5 +15,6 @@
 #include "Composite/Salads/toppings.hpp"
 #include "Composite/Salads/protein.hpp"
 #include "Composite/Salads/dressing.hpp"
+#include "Composite/Salads/salad.hpp"
 
 #endif // __INCLUDE_HPP__
