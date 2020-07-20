@@ -75,7 +75,7 @@ class Dressing : public Base {
 				name = "BLUE CHEESE";
 				break;
 			case 'V':
-				name = "BALSAMIC VINEGAR + OLIVE OIL";
+				name = "BALSAMIC VINEGAR & OLIVE OIL";
 				break;
 			case 'S':
 				name = "SOUTHWEST DRESSING";			

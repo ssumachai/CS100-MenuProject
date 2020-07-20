@@ -419,7 +419,7 @@ TEST(SaladTest, SadSalad){
 }
 
 TEST(SaladTest, NormalSalad){
-	char array1[9] = {'Y', 'N', 'Y', 'N', 'Y', 'Y', ' Y', 'Y', 'N'};
+	char array1[9] = {'Y', 'N', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'N'};
 	char array2[3] = {'Y', 'N', 'N'};
 	char array3[3] = {'S', 'N'};
 	
@@ -436,10 +436,10 @@ TEST(SaladTest, NormalSalad){
 	EXPECT_EQ(spring->receipt(), "SPRING MIX");
 	EXPECT_EQ(myToppings->receipt(), "GRAPE TOMATOES\nCORN\nCROUTONS\nEGG\nCHEESE BLEND\nAVOCADO");
 	EXPECT_EQ(iTry->receipt(), "GRILLED CHICKEN");
-	EXPECT_EQ(oh->receipt(), "SOUTHWEST DRESSING");
+	EXPECT_EQ(heh->receipt(), "SOUTHWEST DRESSING");
 	
-	Salad* why = new Salad(spring, myToppings, iTry, oh);
-	EXPECT_DOUBLE_EQ(why->price(), 6.00);
+	Salad* why = new Salad(spring, myToppings, iTry, heh);
+	EXPECT_DOUBLE_EQ(why->price(), 5.00);
 	EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nSPRING MIX WITH\nGRAPE TOMATOES\nCORN\nCROUTONS\nEGG\nCHEESE BLEND\nAVOCADO\nADD\nGRILLED CHICKEN\nWITH SOUTHWEST DRESSING");
 }
 
