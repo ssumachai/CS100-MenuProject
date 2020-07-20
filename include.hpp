@@ -11,5 +11,9 @@
 #include "Composite/Wings/fry_seasoning.hpp"
 #include "Composite/Wings/dipping_sauce.hpp"
 #include "Composite/Wings/wing.hpp"
+#include "Composite/Salads/lettuce.hpp"
+#include "Composite/Salads/toppings.hpp"
+#include "Composite/Salads/protein.hpp"
+#include "Composite/Salads/dressing.hpp"
 
 #endif // __INCLUDE_HPP__

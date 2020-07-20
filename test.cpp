@@ -318,7 +318,80 @@ TEST(WingTest, ComboBasket){
 	EXPECT_EQ(basket->receipt(), "WING BASKET\n12 COMBO WINGS\n- 6 BUFFALO\n- 3 BBQ\n- 3 PLAIN\nHALFSIES FRIES w/ NO SEASONING\n+ 2 RANCH(ES)\n+ 2 BLUE CHEESE");
 }
 
+TEST(SaladTest, LettuceInput){
+	Lettuce* rom = new Lettuce('R');
+	Lettuce* ice = new Lettuce('I');
+	Lettuce* mix = new Lettuce('S');
+	Lettuce* kale = new Lettuce('K');
 
+	EXPECT_DOUBLE_EQ(rom->price(), 2.00);
+	EXPECT_DOUBLE_EQ(ice->price(), 2.00);
+	EXPECT_DOUBLE_EQ(mix->price(), 2.25);
+	EXPECT_DOUBLE_EQ(kale->price(), 3.00);
+
+	EXPECT_EQ(rom->receipt(), "ROMAINE LETTUCE");
+	EXPECT_EQ(ice->receipt(), "ICEBERG LETTUCE");
+	EXPECT_EQ(mix->receipt(), "SPRING MIX");
+	EXPECT_EQ(kale->receipt(), "KALE SLAW");
+}
+
+TEST(SaladTest, ToppingArray){
+	char array1[9] = {'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y'};
+	Toppings* allToppings = new Toppings(array1);
+
+	EXPECT_DOUBLE_EQ(allToppings->price(), 2.00);
+	EXPECT_EQ(allToppings->receipt(), "GRAPE TOMATOES\nCUCUMBERS\nCORN\nBLACK BEANS\nCROUTONS\nEGG\nCHEESE BLEND\nAVOCADO\nDICED BACON");
+
+	char array2[9] = {'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N'};
+	Toppings* noToppings = new Toppings(array2);
+	
+	EXPECT_EQ(noToppings->price(), 0);
+	EXPECT_EQ(noToppings->receipt(), "NO TOPPINGS");
+
+	char array3[9] = {'Y', 'N', 'Y', 'N', 'Y', 'N', 'Y', 'N', 'Y'};
+	Toppings* mixToppings = new Toppings(array3);
+	
+	EXPECT_DOUBLE_EQ(mixToppings->price(), 0.75);
+	EXPECT_EQ(mixToppings->receipt(), "GRAPE TOMATOES\nCORN\nCROUTONS\nCHEESE BLEND\nDICED BACON");
+}
+
+TEST(SaladTest, ProteinArray){
+	char array1[3] = {'Y', 'Y', 'Y'};
+	Protein* superGainz = new Protein(array1);
+	
+	EXPECT_DOUBLE_EQ(superGainz->price(), 5.25);
+	EXPECT_EQ(superGainz->receipt(), "GRILLED CHICKEN\nGRILLED SALMON\nSOY CHICKEN");
+
+	char array2[3] = {'N', 'N', 'N'};
+	Protein* sadGainz = new Protein(array2);
+	
+	EXPECT_EQ(sadGainz->price(), 0);
+	EXPECT_EQ(sadGainz->receipt(), "NO PROTEIN");
+
+	char array3[3] = {'Y', 'N', 'Y'};
+	Protein* mehGainz = new Protein(array3);
+
+	EXPECT_DOUBLE_EQ(mehGainz->price(), 3.25);
+	EXPECT_EQ(mehGainz->receipt(), "GRILLED CHICKEN\nSOY CHICKEN");
+}
+
+TEST(SaladTest, DressingArray){
+	char rSide[2] = {'R', 'Y'};
+	char cae[2] = {'C', 'N'};
+	char no[2] = {'N', 'N'};
+	
+	Dressing* ranchOnSide = new Dressing(rSide);
+	Dressing* caesar = new Dressing(cae);
+	Dressing* dry = new Dressing(no);
+
+	EXPECT_EQ(ranchOnSide->price(), 0);
+	EXPECT_EQ(caesar->price(), 0);
+	EXPECT_EQ(dry->price(), 0);
+	
+	EXPECT_EQ(ranchOnSide->receipt(), "RANCH DRESSING ON SIDE");
+	EXPECT_EQ(caesar->receipt(), "CAESAR DRESSING");
+	EXPECT_EQ(dry->receipt(), "NO DRESSING");
+}
 
 int main(int argc, char **argv){
 	::testing::InitGoogleTest(&argc, argv);
