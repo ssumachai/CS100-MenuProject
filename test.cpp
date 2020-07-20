@@ -264,7 +264,7 @@ TEST(WingTest, BuffaloBasket){
 	EXPECT_EQ(dips->receipt(), "+ 1 RANCH(ES)\n+ 2 BLUE CHEESE");
 	
 	Wing* basket = new Wing(six, buff, curlyCajun, dips);
-	EXPECT_DOUBLE_EQ(basket->price(), 15.69);
+	EXPECT_DOUBLE_EQ(basket->price(), 9.34);
 	EXPECT_EQ(basket->receipt(), "WING BASKET\n6 BUFFALO WINGS\nCURLY FRIES w/ CAJUN\n+ 1 RANCH(ES)\n+ 2 BLUE CHEESE");
 }
 
@@ -290,7 +290,7 @@ TEST(WingTest, BBQBasket){
 	
 	Wing* basket = new Wing(nine, bbq, regSeaSalt, dips);
 	EXPECT_DOUBLE_EQ(basket->price(), 12.49);
-	EXPECT_EQ(basket->receipt(), "WING BASKET\n9 BBQ WINGS\nREG FRIES. /w SEA SALT\n+ 4 RANCH(ES)");
+	EXPECT_EQ(basket->receipt(), "WING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
 }
 
 TEST(WingTest, ComboBasket){

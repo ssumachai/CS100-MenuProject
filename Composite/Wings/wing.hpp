@@ -15,7 +15,7 @@ class Wing : public Base {
 		}
 		virtual double price(){
 			double sum = 0.00;
-			sum = A[0]->price() + A[1]->price() + A[2]->price(), A[3]->price();
+			sum = A[0]->price() + A[1]->price() + A[2]->price() + A[3]->price();
 			return sum;
 		}
 		virtual std::string receipt(){
