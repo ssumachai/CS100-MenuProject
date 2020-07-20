@@ -393,6 +393,27 @@ TEST(SaladTest, DressingArray){
 	EXPECT_EQ(dry->receipt(), "NO DRESSING");
 }
 
+TEST(SaladTest, SadSalad){
+	char array1[9] = {'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N'};
+	char array2[3] = {'N', 'N', 'N'};
+	char array3[3] = {'N', 'N'};
+	
+	Lettuce* romaine = new Lettuce('R');
+	Toppings* noToppings = new Toppings(array1);
+	Protein* sadGainz = new Protein(array2);
+	Dressing* dry = new Dressing(array3);
+	
+	EXPECT_DOUBLE_EQ(romaine->price(), 2.00);
+	EXPECT_DOUBLE_EQ(noToppings->price(), 0);
+	EXPECT_DOUBLE_EQ(sadGainz->price(), 0);
+	EXPECT_DOUBLE_EQ(dry->price(), 0);
+	
+	EXPECT_EQ(romaine->receipt(), "ROMAINE LETTUCE");
+	EXPECT_EQ(noToppings->receipt(), "NO TOPPINGS");
+	EXPECT_EQ(sadGainz->receipt(), "NO PROTEIN");
+	EXPECT_EQ(dry->receipt(), "NO DRESSING");
+}
+	
 int main(int argc, char **argv){
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
