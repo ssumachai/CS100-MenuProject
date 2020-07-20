@@ -217,7 +217,109 @@ TEST(WingTest, DippingSauceArray){
 	EXPECT_EQ(dip3->receipt(), "+ 2 RANCH(ES)");
 	EXPECT_EQ(dip4->receipt(), "NO SAUCE");
 }
- 
+
+TEST(WingTest, PlainBasket){
+	int sauce[3] = {0, 0, 3};
+	char fries[2] = {'N', 'N'};
+	int dipp[4] = {0, 0, 0, 0};
+	
+	WingCount* three = new WingCount(3);
+	WingSauce* plain = new WingSauce(sauce);
+	FrySeasoning* noFries = new FrySeasoning(fries);
+	DippingSauce* dips = new DippingSauce(dipp);
+	
+	EXPECT_DOUBLE_EQ(three->price(), 3.00);
+	EXPECT_DOUBLE_EQ(plain->price(), 0.00);
+	EXPECT_DOUBLE_EQ(noFries->price(), 0.00);
+	EXPECT_DOUBLE_EQ(dips->price(), 0.00);
+	
+	EXPECT_EQ(three->receipt(), "3");
+	EXPECT_EQ(plain->receipt(), "PLAIN WINGS");
+	EXPECT_EQ(noFries->receipt(), "NO FRIES ");
+	EXPECT_EQ(dips->receipt(), "NO SAUCE");
+	
+	Wing* basket = new Wing(three, plain, noFries, dips);
+	EXPECT_DOUBLE_EQ(basket->price(), 3.00);
+	EXPECT_EQ(basket->receipt(), "WING BASKET\n3 PLAIN WINGS\nNO FRIES \nNO SAUCE");
+}
+
+TEST(WingTest, BuffaloBasket){
+	int sauce[3] = {6, 0, 0};
+	char fries[2] = {'C', 'C'};
+	int dipp[4] = {1, 1, 1, 2};
+	
+	WingCount* six = new WingCount(6);
+	WingSauce* buff = new WingSauce(sauce);
+	FrySeasoning* curlyCajun = new FrySeasoning(fries);
+	DippingSauce* dips = new DippingSauce(dipp);
+	
+	EXPECT_DOUBLE_EQ(six->price(), 6.00);
+	EXPECT_DOUBLE_EQ(buff->price(), 0.60);
+	EXPECT_DOUBLE_EQ(curlyCajun->price(), 1.99);
+	EXPECT_DOUBLE_EQ(dips->price(), 0.75);
+	
+	EXPECT_EQ(six->receipt(), "6");
+	EXPECT_EQ(buff->receipt(), "BUFFALO WINGS");
+	EXPECT_EQ(curlyCajun->receipt(), "CURLY FRIES w/ CAJUN");
+	EXPECT_EQ(dips->receipt(), "+ 1 RANCH(ES)\n+ 2 BLUE CHEESE");
+	
+	Wing* basket = new Wing(six, buff, curlyCajun, dips);
+	EXPECT_DOUBLE_EQ(basket->price(), 15.69);
+	EXPECT_EQ(basket->receipt(), "WING BASKET\n6 BUFFALO WINGS\nCURLY FRIES w/ CAJUN\n+ 1 RANCH(ES)\n+ 2 BLUE CHEESE");
+}
+
+TEST(WingTest, BBQBasket){
+	int sauce[3] = {0, 9, 0};
+	char fries[2] = {'R', 'S'};
+	int dipp[4] = {1, 4, 0, 0};
+	
+	WingCount* nine = new WingCount(9);
+	WingSauce* bbq = new WingSauce(sauce);
+	FrySeasoning* regSeaSalt = new FrySeasoning(fries);
+	DippingSauce* dips = new DippingSauce(dipp);
+	
+	EXPECT_DOUBLE_EQ(nine->price(), 9.00);
+	EXPECT_DOUBLE_EQ(bbq->price(), 0.90);
+	EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);
+	EXPECT_DOUBLE_EQ(dips->price(), 1.00);
+	
+	EXPECT_EQ(nine->receipt(), "9");
+	EXPECT_EQ(bbq->receipt(), "BBQ WINGS");
+	EXPECT_EQ(regSeaSalt->receipt(), "REG. FRIES w/ SEA SALT");
+	EXPECT_EQ(dips->receipt(), "+ 4 RANCH(ES)");
+	
+	Wing* basket = new Wing(nine, bbq, regSeaSalt, dips);
+	EXPECT_DOUBLE_EQ(basket->price(), 12.49);
+	EXPECT_EQ(basket->receipt(), "WING BASKET\n9 BBQ WINGS\nREG FRIES. /w SEA SALT\n+ 4 RANCH(ES)");
+}
+
+TEST(WingTest, ComboBasket){
+	int sauce[3] = {6, 3, 3};
+	char fries[2] = {'H', 'N'};
+	int dipp[4] = {1, 2, 1, 2};
+	
+	WingCount* twelve = new WingCount(12);
+	WingSauce* combo = new WingSauce(sauce);
+	FrySeasoning* halfNo = new FrySeasoning(fries);
+	DippingSauce* dips = new DippingSauce(dipp);
+	
+	EXPECT_DOUBLE_EQ(twelve->price(), 12.00);
+	EXPECT_DOUBLE_EQ(combo->price(), 0.90);
+	EXPECT_DOUBLE_EQ(halfNo->price(), 1.79);
+	EXPECT_DOUBLE_EQ(dips->price(), 1.00);
+	
+	EXPECT_EQ(twelve->receipt(), "12");
+	EXPECT_EQ(combo->receipt(), "COMBO WINGS\n- 6 BUFFALO\n- 3 BBQ\n- 3 PLAIN");
+	EXPECT_EQ(halfNo->receipt(), "HALFSIES FRIES w/ NO SEASONING");
+	EXPECT_EQ(dips->receipt(), "+ 2 RANCH(ES)\n+ 2 BLUE CHEESE");
+	
+	Wing* basket = new Wing(twelve, combo, halfNo, dips);
+	EXPECT_DOUBLE_EQ(basket->price(), 15.69);
+	EXPECT_EQ(basket->receipt(), "WING BASKET\n12 COMBO WINGS\n- 6 BUFFALO\n- 3 BBQ\n- 3 PLAIN\nHALFSIES FRIES w/ NO SEASONING\n+ 2 RANCH(ES)\n+ 2 BLUE CHEESE");
+}
+
+
+
 int main(int argc, char **argv){
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
