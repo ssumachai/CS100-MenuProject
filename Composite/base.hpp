@@ -11,6 +11,7 @@ class Base{
 		//Pure Virtual Functions
 		virtual double price() = 0;
 		virtual std::string receipt() = 0;
+		bool is_valid(char value){return (value != 'Y' && value != 'y' && value != 'N' && value != 'n');}
 };
 
 #endif // __BASE_HPP__
