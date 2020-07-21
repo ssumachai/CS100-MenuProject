@@ -3,11 +3,11 @@
 > Author(s): Sumachai Suksanguan, Karsten Fields
 
 
-The two of us plan on creating a Menu Application that will utilize Composite, Decorator, and Strategy Design Patterns.
+The two of us plan on creating a Menu Application that will utilize Composite, Decorator, and Visitor Design Patterns.
 
 # Premise
 
-Foodservice is a growing industry, and as restaurants get more and more advanced, so will the technology needed.  We believe that using these patterns to design a functional menu option that allows users to keep better track of their items and food will be much more efficient in the long run. After all, food can be composed of many "smaller" ingredients, and "decorated" as well.  Utilising a Strategy Pattern will allow for more specific implementations of certain functions.
+Foodservice is a growing industry, and as restaurants get more and more advanced, so will the technology needed.  We believe that using these patterns to design a functional menu option that allows users to keep better track of their items and food will be much more efficient in the long run. After all, food can be composed of many "smaller" ingredients, and "decorated" as well.  Utilising a Visitor Pattern will allow for more specific messages for our guests at the end of their receipt.
 
 This project will be coded primarily in C++.  The README. will be updated along the way, with all important aspects highlighted during the developmental process.  The program will be tested both by user-input during a demo, and pre-determined character arrays that will populate our constructors.  This will be further discussed in the testing portion of each design patterns implementation.
 
