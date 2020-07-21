@@ -117,9 +117,9 @@ class Toppings : public Base {
 			std::string str;
 			int sz = topp.size();
 			for(int i = 0; i < sz - 1; i++){
-				str = str + topp.at(i)->receipt() + '\n';
+				str = str + "- " + topp.at(i)->receipt() + '\n';
 			}
-			str = str + topp.at(sz - 1)->receipt();
+			str = str + "- " + topp.at(sz - 1)->receipt();
 			return str;
 		}
 };

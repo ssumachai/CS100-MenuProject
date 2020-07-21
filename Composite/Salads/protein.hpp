@@ -58,9 +58,9 @@ class Protein : public Base {
 			std::string str;
 			int sz = gainz.size();
 			for(int i = 0; i < sz - 1;i++){
-				str = str + gainz.at(i)->receipt() + '\n';
+				str = str + "- " + gainz.at(i)->receipt() + '\n';
 			}
-			str = str + gainz.at(sz - 1)->receipt();
+			str = str + "- " + gainz.at(sz - 1)->receipt();
 			return str;
 		}
 };

@@ -340,19 +340,19 @@ TEST(SaladTest, ToppingArray){
 	Toppings* allToppings = new Toppings(array1);
 
 	EXPECT_DOUBLE_EQ(allToppings->price(), 2.00);
-	EXPECT_EQ(allToppings->receipt(), "GRAPE TOMATOES\nCUCUMBERS\nCORN\nBLACK BEANS\nCROUTONS\nEGG\nCHEESE BLEND\nAVOCADO\nDICED BACON");
+	EXPECT_EQ(allToppings->receipt(), "- GRAPE TOMATOES\n- CUCUMBERS\n- CORN\n- BLACK BEANS\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO\n- DICED BACON");
 
 	char array2[9] = {'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N'};
 	Toppings* noToppings = new Toppings(array2);
 	
 	EXPECT_EQ(noToppings->price(), 0);
-	EXPECT_EQ(noToppings->receipt(), "NO TOPPINGS");
+	EXPECT_EQ(noToppings->receipt(), "- NO TOPPINGS");
 
 	char array3[9] = {'Y', 'N', 'Y', 'N', 'Y', 'N', 'Y', 'N', 'Y'};
 	Toppings* mixToppings = new Toppings(array3);
 	
 	EXPECT_DOUBLE_EQ(mixToppings->price(), 0.75);
-	EXPECT_EQ(mixToppings->receipt(), "GRAPE TOMATOES\nCORN\nCROUTONS\nCHEESE BLEND\nDICED BACON");
+	EXPECT_EQ(mixToppings->receipt(), "- GRAPE TOMATOES\n- CORN\n- CROUTONS\n- CHEESE BLEND\n- DICED BACON");
 }
 
 TEST(SaladTest, ProteinArray){
@@ -360,19 +360,19 @@ TEST(SaladTest, ProteinArray){
 	Protein* superGainz = new Protein(array1);
 	
 	EXPECT_DOUBLE_EQ(superGainz->price(), 5.25);
-	EXPECT_EQ(superGainz->receipt(), "GRILLED CHICKEN\nGRILLED SALMON\nSOY CHICKEN");
+	EXPECT_EQ(superGainz->receipt(), "- GRILLED CHICKEN\n- GRILLED SALMON\n- SOY CHICKEN");
 
 	char array2[3] = {'N', 'N', 'N'};
 	Protein* sadGainz = new Protein(array2);
 	
 	EXPECT_EQ(sadGainz->price(), 0);
-	EXPECT_EQ(sadGainz->receipt(), "NO PROTEIN");
+	EXPECT_EQ(sadGainz->receipt(), "- NO PROTEIN");
 
 	char array3[3] = {'Y', 'N', 'Y'};
 	Protein* mehGainz = new Protein(array3);
 
 	EXPECT_DOUBLE_EQ(mehGainz->price(), 3.25);
-	EXPECT_EQ(mehGainz->receipt(), "GRILLED CHICKEN\nSOY CHICKEN");
+	EXPECT_EQ(mehGainz->receipt(), "- GRILLED CHICKEN\n- SOY CHICKEN");
 }
 
 TEST(SaladTest, DressingArray){
@@ -409,13 +409,13 @@ TEST(SaladTest, SadSalad){
 	EXPECT_DOUBLE_EQ(dry->price(), 0);
 	
 	EXPECT_EQ(romaine->receipt(), "ROMAINE LETTUCE");
-	EXPECT_EQ(noToppings->receipt(), "NO TOPPINGS");
-	EXPECT_EQ(sadGainz->receipt(), "NO PROTEIN");
+	EXPECT_EQ(noToppings->receipt(), "- NO TOPPINGS");
+	EXPECT_EQ(sadGainz->receipt(), "- NO PROTEIN");
 	EXPECT_EQ(dry->receipt(), "NO DRESSING");
 
 	Salad* why = new Salad(romaine, noToppings, sadGainz, dry);
 	EXPECT_DOUBLE_EQ(why->price(), 2.49);
-	EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nROMAINE LETTUCE WITH\nNO TOPPINGS\nADD\nNO PROTEIN\nWITH NO DRESSING");
+	EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nROMAINE LETTUCE WITH\n- NO TOPPINGS\nADD\n- NO PROTEIN\nWITH NO DRESSING");
 }
 
 TEST(SaladTest, NormalSalad){
@@ -434,13 +434,13 @@ TEST(SaladTest, NormalSalad){
 	EXPECT_DOUBLE_EQ(heh->price(), 0);
 	
 	EXPECT_EQ(spring->receipt(), "SPRING MIX");
-	EXPECT_EQ(myToppings->receipt(), "GRAPE TOMATOES\nCORN\nCROUTONS\nEGG\nCHEESE BLEND\nAVOCADO");
-	EXPECT_EQ(iTry->receipt(), "GRILLED CHICKEN");
+	EXPECT_EQ(myToppings->receipt(), "- GRAPE TOMATOES\n- CORN\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO");
+	EXPECT_EQ(iTry->receipt(), "- GRILLED CHICKEN");
 	EXPECT_EQ(heh->receipt(), "SOUTHWEST DRESSING");
 	
 	Salad* why = new Salad(spring, myToppings, iTry, heh);
 	EXPECT_DOUBLE_EQ(why->price(), 5.00);
-	EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nSPRING MIX WITH\nGRAPE TOMATOES\nCORN\nCROUTONS\nEGG\nCHEESE BLEND\nAVOCADO\nADD\nGRILLED CHICKEN\nWITH SOUTHWEST DRESSING");
+	EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nSPRING MIX WITH\n- GRAPE TOMATOES\n- CORN\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO\nADD\n- GRILLED CHICKEN\nWITH SOUTHWEST DRESSING");
 }
 
 TEST(SaladTest, MaxSalad){
@@ -459,13 +459,13 @@ TEST(SaladTest, MaxSalad){
 	EXPECT_DOUBLE_EQ(oh->price(), 0);
 	
 	EXPECT_EQ(kale->receipt(), "KALE SLAW");
-	EXPECT_EQ(allToppings->receipt(), "GRAPE TOMATOES\nCUCUMBERS\nCORN\nBLACK BEANS\nCROUTONS\nEGG\nCHEESE BLEND\nAVOCADO\nDICED BACON");
-	EXPECT_EQ(bigGainz->receipt(), "GRILLED CHICKEN\nGRILLED SALMON\nSOY CHICKEN");
+	EXPECT_EQ(allToppings->receipt(), "- GRAPE TOMATOES\n- CUCUMBERS\n- CORN\n- BLACK BEANS\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO\n- DICED BACON");
+	EXPECT_EQ(bigGainz->receipt(), "- GRILLED CHICKEN\n- GRILLED SALMON\n- SOY CHICKEN");
 	EXPECT_EQ(oh->receipt(), "BALSAMIC VINEGAR & OLIVE OIL ON SIDE");
 
 	Salad* why = new Salad(kale, allToppings, bigGainz, oh);
 	EXPECT_DOUBLE_EQ(why->price(), 10.25);
-	EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nKALE SLAW WITH\nGRAPE TOMATOES\nCUCUMBERS\nCORN\nBLACK BEANS\nCROUTONS\nEGG\nCHEESE BLEND\nAVOCADO\nDICED BACON\nADD\nGRILLED CHICKEN\nGRILLED SALMON\nSOY CHICKEN\nWITH BALSAMIC VINEGAR & OLIVE OIL ON SIDE");
+	EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nKALE SLAW WITH\n- GRAPE TOMATOES\n- CUCUMBERS\n- CORN\n- BLACK BEANS\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO\n- DICED BACON\nADD\n- GRILLED CHICKEN\n- GRILLED SALMON\n- SOY CHICKEN\nWITH BALSAMIC VINEGAR & OLIVE OIL ON SIDE");
 }
 	
 int main(int argc, char **argv){
