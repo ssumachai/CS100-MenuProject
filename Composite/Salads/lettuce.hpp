@@ -57,6 +57,24 @@ class Lettuce : public Base {
 		
 		virtual double price(){return letUs->price();}
 		virtual std::string receipt(){return letUs->receipt();}
+		virtual void accept(Visitor* v){
+			std::string why = letUs->receipt();
+
+			if(why == "ROMAINE LETTUCE"){
+					v->visit_lettuce('R');
+			}
+			else if(why == "ICEBERG LETTUCE"){
+					v->visit_lettuce('I');
+			}
+			else if(why == "SPRING MIX"){
+					v->visit_lettuce('S');
+			}
+			else if(why == "KALE SLAW"){
+					v->visit_lettuce('K');
+			}
+			else{}
+		}
+
 };
 
 #endif // __LETTUCE_HPP__

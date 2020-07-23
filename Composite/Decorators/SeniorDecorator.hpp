@@ -10,6 +10,10 @@ class SeniorDecorator : public Base {
                 SeniorDecorator(Base* b){this->b = b;}
                 virtual double price(){return b->price() - (0.15 * b->price());}
                 virtual std::string receipt(){return "Senior Order:\n" + b->receipt();}
+		virtual void accept(Visitor* v){
+			b->accept(v);
+			v->visit_senior();
+		}
 };
 
 #endif // __SENIORDECORATOR_HPP__

@@ -65,6 +65,14 @@ class Sauce : public Base{
 			str += lost.at(sz - 1)->receipt();
 			return str;
 		}
+		virtual void accept(Visitor* v){
+			if(lost.at(0)->receipt() == "NO SAUCE"){return;}
+			else{
+				for(unsigned i = 0; i < lost.size(); i++){
+					v->visit_sauce();
+				}
+			}
+		}
 };
 
 #endif // __SAUCE_HPP__

@@ -11,6 +11,7 @@ class Ingredients : public Base {
 		Ingredients(std::string str, double val){name = str; value = val;}
 		double price(){return value;}
 		std::string receipt(){return name;}
+		virtual void accept(Visitor* v){}
 };
 
 #endif // __INGREDIENTS_HPP__

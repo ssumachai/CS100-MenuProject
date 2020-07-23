@@ -69,6 +69,14 @@ class Veggies : public Base{
 		str = str + selection.at(sz - 1)->receipt();
 		return str;
 	}
+	virtual void accept(Visitor* v){
+		if(selection.at(0)->receipt() == "NO VEGGIES"){return;}
+		else{
+			for(unsigned i = 0; i < selection.size(); i++){
+				v->visit_veggie();
+			}
+		}
+	}
 };
 
 #endif // __VEGGIES_HPP__		

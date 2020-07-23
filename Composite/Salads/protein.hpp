@@ -63,6 +63,14 @@ class Protein : public Base {
 			str = str + "- " + gainz.at(sz - 1)->receipt();
 			return str;
 		}
+		virtual void accept(Visitor* v){
+			if(gainz.at(0)->receipt() == "NO PROTEIN"){return;}
+			else{
+				for(unsigned i = 0; i < gainz.size(); i++){
+					v->visit_proteins();
+				}
+			}
+		}
 };
 
 #endif // __PROTEIN_HPP__

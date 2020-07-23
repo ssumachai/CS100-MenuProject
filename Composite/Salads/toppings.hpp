@@ -122,6 +122,14 @@ class Toppings : public Base {
 			str = str + "- " + topp.at(sz - 1)->receipt();
 			return str;
 		}
+		virtual void accept(Visitor* v){
+			if(topp.at(0)->receipt() == "NO TOPPINGS"){return;}
+			else{
+				for(unsigned i = 0; i < topp.size(); i++){
+					v->visit_toppings();
+				}
+			}
+		}
 };
 
 #endif // __TOPPINGS_HPP__

@@ -26,6 +26,14 @@ class Salad : public Base {
 			str = "PERSONAL SALAD\n" + A[0]->receipt() + " WITH\n" + A[1]->receipt() + "\nADD\n" + A[2]->receipt() + "\nWITH " + A[3]->receipt();
 			return str;
 		}
+		virtual void accept(Visitor* v){
+			A[0]->accept(v);
+			A[1]->accept(v);
+			A[2]->accept(v);
+			A[3]->accept(v);
+		
+			v->visit_salad();
+		}
 };
 
 #endif // __SALAD_HPP__

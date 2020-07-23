@@ -23,6 +23,13 @@ class Burger : public Base{
 			str = "PERSONAL BURGER\nADD\n" + A[0]->receipt() + '\n' + A[1]->receipt() + '\n' + A[2]->receipt();	
 			return str;
 		}
+		virtual void accept(Visitor* v){
+			A[0]->accept(v);
+			A[1]->accept(v);
+			A[2]->accept(v);
+
+			v->visit_burger();
+		}
 };
 
 #endif // __BURGER_HPP__

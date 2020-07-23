@@ -231,6 +231,257 @@ TEST(BurgerTest, PlainBurger){
 	EXPECT_EQ(why->receipt(), "PERSONAL BURGER\nADD\nNO VEGGIES\nNO EXTRAS\nNO SAUCE");
 }
 ```
-### User Testing
 
-Will be written when implemented and developed.
+
+# Utilization of Decorator Pattern
+
+There are several different groups of people who receive special discounts on their purchases. Such groups include students, senior citizens, veterans, and employees. Students get a 10% discount, Seniors get a 15% discount, veterans get a 20% discount, and employees get a 50% discount.
+
+## Code Example for Decorator Pattern
+
+Here is the code for the 'EmployeeDecorator' class:
+
+```c++
+#ifndef __EMPLOYEEDECORATOR_HPP__
+#define __EMPLOYEEDECORATOR_HPP__
+
+#include "../base.hpp"
+
+class EmployeeDecorator : public Base {
+        private:
+                Base* b;
+        public:
+                EmployeeDecorator(Base* b){this->b = b;}
+                virtual double price(){return b->price() - (0.5 * b->price());}
+                virtual std::string receipt(){return "Employee Order:\n" + b->receipt();}
+};
+
+#endif // __EMPLOYEEDECORATOR_HPP__
+```
+Using the code above:
+
+Using an input of:
+```c++
+WingCount* twelve = new WingCount(12);
+WingSauce* combo = new WingSauce({6, 6, 0});
+FrySeasoning* regCajun = new FrySesaoning({'R', 'C'});
+DippingSauce* dipp = new DippingSauce({1, 2, 0, 0});
+
+Wing* basket = new Wing(twelve, combo, regCajun, dipp);
+EmployeeDecorator* EmpDiscount = new EmployeeDecorator(basket);
+```
+would yield an output of:
+
+```
+Employee Order:
+WING BASKET
+12 COMBO WINGS
+- 6 BUFFALO
+- 6 BBQ
+- 0 PLAIN
+REG. FRIES w/ CAJUN
++ 2 RANCH(ES)
+```
+
+## Testing Decorator Design
+
+Our tests for the decorator design pattern will borrow most of the code from the composite pattern tests because decorator pattern simply builds on the composite pattern. The only difference in the tests is the creation of decorator objects, and checking the expected values of altered output.
+
+Here is an example test using the Google test suite:
+
+```c++
+TEST(Decorators, EmployeeDecorator){
+        int sauce[3] = {0, 9, 0};
+	char fries[2] = {'R', 'S'};
+        int dipp[4] = {1, 4, 0, 0};
+        
+	WingCount* nine = new WingCount(9);
+	WingSauce* bbq = new WingSauce(sauce);
+	FrySeasoning* regSeaSalt = new FrySeasoning(fries);
+	DippingSauce* dips = new DippingSauce(dipp);
+	
+	EXPECT_DOUBLE_EQ(nine->price(), 9.00);
+        EXPECT_DOUBLE_EQ(bbq->price(), 0.90);
+	EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);
+	EXPECT_DOUBLE_EQ(dips->price(), 1.00);
+	EXPECT_EQ(nine->receipt(), "9");
+        EXPECT_EQ(bbq->receipt(), "BBQ WINGS");
+        EXPECT_EQ(regSeaSalt->receipt(), "REG. FRIES w/ SEA SALT");
+        EXPECT_EQ(dips->receipt(), "+ 4 RANCH(ES)");                                                                                                                                       
+	Wing* basket = new Wing(nine, bbq, regSeaSalt, dips);
+	EXPECT_DOUBLE_EQ(basket->price(), 12.49);
+	EXPECT_EQ(basket->receipt(), "WING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+	
+	EmployeeDecorator* EmpDiscount = new EmployeeDecorator(basket);
+        EXPECT_EQ(EmpDiscount->price(), 6.245);
+	EXPECT_EQ(EmpDiscount->receipt(), "Employee Order:\nWING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+} 
+```
+## UML Diagram for Decorator Pattern
+
+![Decorator_UML](/Composite/Decorators/DecoratorPattern.png)
+
+# Utilization of Visitor Pattern
+
+After a guest orders some food, there tends to a brief waiting period.  Most businesses want to use that time to market their other products and ensure that the guests attention is focused on the business and what they could potentially buy next.  After all most establishments fill their dining halls to the brim with advertisements for other products.  At the bottom of the receipt, each guest will receive a message based on the content of their order. By utilizing the `Visitor` class and member variable `std::string message`, we return an amusing message for the guest, filled with puns and suggestions.
+
+![visitor_uml](Composite/Visitor/visitor_uml.png)
+
+> Note 1: The term `All ConcreteIngredients` refers to all subclasses that have inherited from type `Base`, meaning `Veggies`, `Extras`, `Sauce`, `WingCount`, `WingSauce`, `FrySeasoning`, `DippingSauce`. `Lettuce`, `Toppings`, `Protein`, `Dressing`. 
+
+> Note 2: The term `All MajorItems` refers to objects of type `Burger`, `Wing`, and `Salad`.
+
+> Note 3: The term `All ConcreteDecorators` refers to the four concrete decorators implemented: `Student Decorator`, `SeniorDecorator`, `VeteranDecorator`, and `EmployeeDecorator`.
+
+## Accept
+
+In order to implement these changes, we had to make some changes to our initial `base.hpp` file.  By including the pure virtual `accept()` function in the declaration, we made it so that every single object of type `Base` is able to interact with our visitor.
+
+```c++
+class Base{
+	public:
+		Base(){}
+		virtual double price() = 0;
+		virtual std::string receipt() = 0;
+		bool is_valid(char value){return (value != 'Y' && value != 'y' && value != 'N' && value != 'n');}
+		
+		//NEW
+		
+		virtual void accept(Visitor* v) = 0;
+};
+```
+Each `accept()` function must take in an object of type `Visitor` and then utilize that object in a certain manner.  Each instance of an `Ingredient`, from `Veggies` to `Dressing` has an overloaded `accept()` function that calls its appropriate `visit_member()` function.  Please note that for veribility purposes, some `visit_member()` functions require parameters to help determine the appropriate message.
+
+## Visit
+
+So the `accept()` function calls a `visit_member()` function, alright what now?  As you can see below, there are several functions that have specific names.  Naturally, the `Veggies` object will interact using the `visit_veggie()` function, and the `Burger` object will interact using the `visit_burger()` object.
+
+```c++
+class Visitor{
+	private:
+		int veggie_count;
+		int sauce_count;
+		int extra_count;
+		
+		int toppings_count;
+		int protein_count;
+		
+		std::string message;
+	public:
+		Visitor();
+		
+		void visit_veggie();
+		void visit_sauce();
+		void visit_extra();
+		void visit_burger();
+		
+		void visit_wing_count(int num);
+		void visit_wing_sauce(int num);
+		void visit_fry(char c);
+		void visit_dip(bool b);
+		void visit_wing();
+		
+		void visit_lettuce(char c);
+		void visit_toppings();
+		void visit_proteins();
+		void visit_dressing(char c);
+		void visit_salad();
+		
+		void visit_student();
+		void visit_employee();
+		void visit_senior();
+		void visit_veteran();
+		
+		std::string get_message();
+
+};
+```
+Now what exactly do these functions do? Despite there being a myriad of them, they all have similar properties.  Analyze what the guest ordered, and create a message based on that order.  
+## Get Message
+
+Our visitor utilizes a strategic combination of `visit_member()` and `accept()` to generate a message based on the guests selection.  If a guest ordered wings and selected to coat them in only Buffalo Sauce, our visitor pattern will suggest that next time they order some BBQ as well.  Perhaps our guest ordered a plain salad with no toppings, the visitor function will compose a message that suggests adding some of our many toppings the next time they visit.
+
+Using an input of
+```c++
+Lettuce* spring = new Lettuce('S');
+Toppings* myToppings = new Toppings({'Y', 'N', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'N'});
+Protein* iTry = new Protein({'Y', 'N', 'N'});
+Dressing* heh = new Dressing({'S', 'N'})
+
+Salad* chai = new Salad(spring, myToppings, iTry, heh);
+EmployeeDecorator* mealPerk = new EmployeeDecorator(chai);
+```
+would construct my personal favorite salad, with an employee discount.  If we run:
+```c++
+Visitor* vis = new Visitor();
+mealPerk->accept(vis);
+
+std::cout << mealPerk->receipt() << std::endl << vis->get_message();
+```
+
+it would yeild an output of:
+```
+Employee Order:
+PERSONAL SALAD
+SPRING MIX WITH
+- GRAPE TOMATOES
+- CORN
+- CROUTONS
+- EGG
+- CHEESE BLEND
+- AVOCADO
+ADD
+- GRILLED CHICKEN
+WITH SOUTHWEST DRESSING
+
+Caution: Spring Mix does not bring forth Spring
+South West...wait where are we?
+Why not add just a little bit more!
+```
+
+## Testing Visitor Design
+
+Naturally, a message concerning an order should be done at the end of an order, when everything is already properly created.  Therefore, our we will be testing our `Visitor` class by having it visit Objects that have been created by our Composite and Decorator Designs respectively.
+
+If we reuse some tests from the above designs, and add in an object of type `Visitor`, we can test the functionality of the visit by checking to see if `visitor->get_message()` returns the correct message.
+
+```c++
+TEST(VisitorTest, ComboBurgerNoDecorator){
+	char array1[4] = {'Y','Y','Y','Y'};
+	Veggies* test1 = new Veggies(array1);
+
+	EXPECT_EQ(test1->price(), 0);
+	EXPECT_EQ(test1->receipt(), "TOMATOES\nLETTUCE\nPICKLES\nONIONS");
+
+	char array2[3] = {'N', 'N', 'N'};  
+        Extras* test2 = new Extras(array2);
+	
+	EXPECT_DOUBLE_EQ(test2->price(), 0.00);
+	EXPECT_EQ(test2->receipt(), "NO EXTRAS");
+
+	char array3[3] = {'Y','Y','N'};
+	Sauce* test3 = new Sauce(array3);
+
+	EXPECT_DOUBLE_EQ(test3->price(), 0);
+	EXPECT_EQ(test3->receipt(), "KETCHUP\nMUSTARD");
+	
+	Burger* bigMac = new Burger(test1, test2, test3);
+	EXPECT_DOUBLE_EQ(bigMac->price(), 3.50);
+	EXPECT_EQ(bigMac->receipt(), "PERSONAL BURGER\nADD\nTOMATOES\nLETTUCE\nPICKLES\nONIONS\nNO EXTRAS\nKETCHUP\nMUSTARD");
+	
+	Visitor* vis = new Visitor();
+	
+	bigMac->accept(vis);
+	std::string mes = vis->get_message();
+	
+	EXPECT_EQ(mes, "You added some toppings, why not take that extra step and add more!");
+
+}
+```
+> Note: In this object here, the burger we created had 6 out of a possible 10 condiments.  As a result, our visitor suggests to the guest that next time they should add just a teensy bit more.
+
+# Main.cpp
+
+Our program has been subjected to a myriad of testing that has put the program through multiple combinations of different foods with their own respective ingredients and the appropriate decorators. However, the only ensure that it works, it to see if it runs when given user input.  Therefore, the program acts by continously asking the user questions.
+
+-- WILL CONTINUE --
