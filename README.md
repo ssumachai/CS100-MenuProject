@@ -494,7 +494,7 @@ TEST(VisitorTest, ComboBurgerNoDecorator){
 
 Our program has been subjected to a myriad of testing that has put the program through multiple combinations of different foods with their own respective ingredients and the appropriate decorators. However, the only ensure that it works, it to see if it runs when given user input.  Therefore, the program acts by continously asking the user questions.
 
-The user interaction was implemented with 'main.cpp' where we go through a sequence of decisions to arrive at the final order. The sequence is as follows:
+The user interaction was implemented with `main.cpp` where we go through a sequence of decisions to arrive at the final order. The sequence is as follows:
 
 1. Ask if the user belongs to a specific group, such as students, or veterans.
 	* That information is then stored for a later calculation.
