@@ -231,6 +231,95 @@ TEST(BurgerTest, PlainBurger){
 	EXPECT_EQ(why->receipt(), "PERSONAL BURGER\nADD\nNO VEGGIES\nNO EXTRAS\nNO SAUCE");
 }
 ```
-### User Testing
 
+
+# Utilization of Decorator Pattern
+
+There are several different groups of people who receive special discounts on their purchases. Such groups include students, senior citizens, veterans, and employees. Students get a 10% discount, Seniors get a 15% discount, veterans get a 20% discount, and employees get a 50% discount.
+
+## Code Example for Decorator Pattern
+
+Here is the code for the 'EmployeeDecorator' class:
+
+```c++
+#ifndef __EMPLOYEEDECORATOR_HPP__
+#define __EMPLOYEEDECORATOR_HPP__
+
+#include "../base.hpp"
+
+class EmployeeDecorator : public Base {
+        private:
+                Base* b;
+        public:
+                EmployeeDecorator(Base* b){this->b = b;}
+                virtual double price(){return b->price() - (0.5 * b->price());}
+                virtual std::string receipt(){return "Employee Order:\n" + b->receipt();}
+};
+
+#endif // __EMPLOYEEDECORATOR_HPP__
+```
+Using the code above:
+
+Using an input of:
+```c++
+WingCount* twelve = new WingCount(12);
+WingSauce* combo = new WingSauce({6, 6, 0});
+FrySeasoning* regCajun = new FrySesaoning({'R', 'C'});
+DippingSauce* dipp = new DippingSauce({1, 2, 0, 0});
+
+Wing* basket = new Wing(twelve, combo, regCajun, dipp);
+EmployeeDecorator* EmpDiscount = new EmployeeDecorator(basket);
+```
+would yield an output of:
+
+```
+Employee Order:
+WING BASKET
+12 COMBO WINGS
+- 6 BUFFALO
+- 6 BBQ
+- 0 PLAIN
+REG. FRIES w/ CAJUN
++ 2 RANCH(ES)
+```
+
+# Testing Decorator Design
+
+Our tests for the decorator design pattern will borrow most of the code from the composite pattern tests because decorator pattern simply builds on the composite pattern. The only difference in the tests is the creation of decorator objects, and checking the expected values of altered output.
+
+Here is an example test using the Google test suite:
+
+```c++
+TEST(Decorators, EmployeeDecorator){
+        int sauce[3] = {0, 9, 0};
+	char fries[2] = {'R', 'S'};
+        int dipp[4] = {1, 4, 0, 0};
+        
+	WingCount* nine = new WingCount(9);
+	WingSauce* bbq = new WingSauce(sauce);
+	FrySeasoning* regSeaSalt = new FrySeasoning(fries);
+	DippingSauce* dips = new DippingSauce(dipp);
+	
+	EXPECT_DOUBLE_EQ(nine->price(), 9.00);
+        EXPECT_DOUBLE_EQ(bbq->price(), 0.90);
+	EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);
+	EXPECT_DOUBLE_EQ(dips->price(), 1.00);
+	EXPECT_EQ(nine->receipt(), "9");
+        EXPECT_EQ(bbq->receipt(), "BBQ WINGS");
+        EXPECT_EQ(regSeaSalt->receipt(), "REG. FRIES w/ SEA SALT");
+        EXPECT_EQ(dips->receipt(), "+ 4 RANCH(ES)");                                                                                                                                       
+	Wing* basket = new Wing(nine, bbq, regSeaSalt, dips);
+	EXPECT_DOUBLE_EQ(basket->price(), 12.49);
+	EXPECT_EQ(basket->receipt(), "WING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+	
+	EmployeeDecorator* EmpDiscount = new EmployeeDecorator(basket);
+        EXPECT_EQ(EmpDiscount->price(), 6.245);
+	EXPECT_EQ(EmpDiscount->receipt(), "Employee Order:\nWING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+} 
+```
+## UML Diagram for Decorator Pattern
+
+![Decorator_UML](/Composite/Decorators/DecoratorPattern.png)
+
+### User Testing
 Will be written when implemented and developed.
