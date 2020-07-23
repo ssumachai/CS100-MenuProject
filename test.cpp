@@ -467,6 +467,81 @@ TEST(SaladTest, MaxSalad){
 	EXPECT_DOUBLE_EQ(why->price(), 10.25);
 	EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nKALE SLAW WITH\n- GRAPE TOMATOES\n- CUCUMBERS\n- CORN\n- BLACK BEANS\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO\n- DICED BACON\nADD\n- GRILLED CHICKEN\n- GRILLED SALMON\n- SOY CHICKEN\nWITH BALSAMIC VINEGAR & OLIVE OIL ON SIDE");
 }
+
+TEST(Decorators, StudentDecorator){
+	char array1[9] = {'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y'};
+        char array2[3] = {'Y', 'Y', 'Y'};
+        char array3[3] = {'V', 'Y'};
+
+        Lettuce* kale = new Lettuce('K');
+        Toppings* allToppings = new Toppings(array1);
+        Protein* bigGainz = new Protein(array2);
+        Dressing* oh = new Dressing(array3);
+
+        EXPECT_DOUBLE_EQ(kale->price(), 3.00);
+        EXPECT_DOUBLE_EQ(allToppings->price(), 2.00);
+        EXPECT_DOUBLE_EQ(bigGainz->price(), 5.25);
+        EXPECT_DOUBLE_EQ(oh->price(), 0);
+
+        EXPECT_EQ(kale->receipt(), "KALE SLAW");
+        EXPECT_EQ(allToppings->receipt(), "- GRAPE TOMATOES\n- CUCUMBERS\n- CORN\n- BLACK BEANS\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO\n- DICED BACON");
+        EXPECT_EQ(bigGainz->receipt(), "- GRILLED CHICKEN\n- GRILLED SALMON\n- SOY CHICKEN");
+        EXPECT_EQ(oh->receipt(), "BALSAMIC VINEGAR & OLIVE OIL ON SIDE");                                 
+        Salad* why = new Salad(kale, allToppings, bigGainz, oh);
+        EXPECT_DOUBLE_EQ(why->price(), 10.25);
+        EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nKALE SLAW WITH\n- GRAPE TOMATOES\n- CUCUMBERS\n- CORN\n- BLACK BEANS\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO\n- DICED BACON\nADD\n- GRILLED CHICKEN\n- GRILLED SALMON\n- SOY CHICKEN\nWITH BALSAMIC VINEGAR & OLIVE OIL ON SIDE");
+	StudentDecorator* StuDiscount = new StudentDecorator(why);
+	EXPECT_EQ(StuDiscount->price(), 9.225);
+	EXPECT_EQ(StuDiscount->receipt(),"Student Order:\nPERSONAL SALAD\nKALE SLAW WITH\n- GRAPE TOMATOES\n- CUCUMBERS\n- CORN\n- BLACK BEANS\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO\n- DICED BACON\nADD\n- GRILLED CHICKEN\n- GRILLED SALMON\n- SOY CHICKEN\nWITH BALSAMIC VINEGAR & OLIVE OIL ON SIDE");
+}
+
+TEST(Decorators, SeniorDecorator){
+        int sauce[3] = {0, 9, 0};
+        char fries[2] = {'R', 'S'};
+        int dipp[4] = {1, 4, 0, 0};
+
+        WingCount* nine = new WingCount(9);                                                                                                       WingSauce* bbq = new WingSauce(sauce);                                                                                                    FrySeasoning* regSeaSalt = new FrySeasoning(fries);
+        DippingSauce* dips = new DippingSauce(dipp);
+
+        EXPECT_DOUBLE_EQ(nine->price(), 9.00);
+        EXPECT_DOUBLE_EQ(bbq->price(), 0.90);
+        EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);                                                                                              EXPECT_DOUBLE_EQ(dips->price(), 1.00);
+
+        EXPECT_EQ(nine->receipt(), "9");
+        EXPECT_EQ(bbq->receipt(), "BBQ WINGS");
+        EXPECT_EQ(regSeaSalt->receipt(), "REG. FRIES w/ SEA SALT");
+        EXPECT_EQ(dips->receipt(), "+ 4 RANCH(ES)");                                                                                                                                                                                                                                        Wing* basket = new Wing(nine, bbq, regSeaSalt, dips);
+        EXPECT_DOUBLE_EQ(basket->price(), 12.49);
+        EXPECT_EQ(basket->receipt(), "WING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+
+	SeniorDecorator* SenDiscount = new SeniorDecorator(basket);
+        EXPECT_EQ(SenDiscount->price(), 10.6165);
+        EXPECT_EQ(SenDiscount->receipt(), "Senior Order:\nWING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+}    
+
+TEST(Decorators, VeteranDecorator){
+        int sauce[3] = {0, 9, 0};
+        char fries[2] = {'R', 'S'};
+        int dipp[4] = {1, 4, 0, 0};
+
+        WingCount* nine = new WingCount(9);                                                                                                       WingSauce* bbq = new WingSauce(sauce);                                                                                                    FrySeasoning* regSeaSalt = new FrySeasoning(fries);
+        DippingSauce* dips = new DippingSauce(dipp);
+
+        EXPECT_DOUBLE_EQ(nine->price(), 9.00);
+        EXPECT_DOUBLE_EQ(bbq->price(), 0.90);
+        EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);                                                                                              EXPECT_DOUBLE_EQ(dips->price(), 1.00);
+
+        EXPECT_EQ(nine->receipt(), "9");
+        EXPECT_EQ(bbq->receipt(), "BBQ WINGS");
+        EXPECT_EQ(regSeaSalt->receipt(), "REG. FRIES w/ SEA SALT");
+        EXPECT_EQ(dips->receipt(), "+ 4 RANCH(ES)");                                                                                                                                                                                                                                        Wing* basket = new Wing(nine, bbq, regSeaSalt, dips);
+        EXPECT_DOUBLE_EQ(basket->price(), 12.49);
+        EXPECT_EQ(basket->receipt(), "WING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+
+        VeteranDecorator* VetDiscount = new VeteranDecorator(basket);
+        EXPECT_EQ(VetDiscount->price(), 9.992);
+        EXPECT_EQ(VetDiscount->receipt(), "Veteran Order:\nWING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+}
 	
 int main(int argc, char **argv){
 	::testing::InitGoogleTest(&argc, argv);

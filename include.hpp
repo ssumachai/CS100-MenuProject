@@ -16,5 +16,8 @@
 #include "Composite/Salads/protein.hpp"
 #include "Composite/Salads/dressing.hpp"
 #include "Composite/Salads/salad.hpp"
+#include "Composite/Decorators/StudentDecorator.hpp"
+#include "Composite/Decorators/SeniorDecorator.hpp"   
+#include "Composite/Decorators/VeteranDecorator.hpp"
 
 #endif // __INCLUDE_HPP__
