@@ -31,10 +31,10 @@ class Visitor{
 			if(sum == 10){
 				message = "You added everything you could! Maybe try some Wings or a Salad Next Time!";
 			}
-			else if(6 < sum && sum < 10){
+			else if(6 <= sum && sum < 10){
 				message = "You added some toppings, why not take that extra step and add more!";
 			}
-			else if(3 < sum && sum < 6){
+			else if(3 <= sum && sum < 6){
 				message = "Try something new! We have a lot to offer!";
 			}
 			else if(1 <= sum && sum < 3){
@@ -82,7 +82,7 @@ class Visitor{
 					message = message + "BBQ and Plain! Why not BBQ Blackout? :)\n";
 					break;
 				case 5:
-					message = message +  "BBQ Supremacy! Not a fun of the Buff?\n";
+					message = message +  "BBQ Supremacy! Not a fan of the Buff?\n";
 					break;
 				case 6:
 					message = message + "Get some sauce in here! We have plenty!\n";
@@ -180,10 +180,10 @@ class Visitor{
 			if(sum == 12){
 				message = message + "You put everything on! Wow, have you considered doing the same with a Burger?\n";
 			}
-			if(sum >= 6 && sum <= 11){
+			else if(sum >= 6 && sum <= 11){
 				message = message + "Why not add just a little bit more!\n";
 			}
-			if(sum >= 1 && sum < 6){
+			else if(sum >= 1 && sum < 6){
 				message = message + "Your salad looks a bit lonely, why not give it some friends?\n";
 			}
 			else{
@@ -201,7 +201,7 @@ class Visitor{
 			message = message + "Thank you for all the hard work! UCR loves you!\n";
 		}
 		void visit_veteran(){
-			message = message + "This is the least we can do.  Thank you\n";
+			message = message + "This is the least we can do. Thank You\n";
 		}
 		std::string get_message(){return message;}
 

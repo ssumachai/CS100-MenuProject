@@ -637,6 +637,7 @@ TEST(VisitorTest, ComboBurgerNoDecorator){
 	std::string mes = vis->get_message();
 	
 	EXPECT_EQ(mes, "You added some toppings, why not take that extra step and add more!");
+
 }
 
 TEST(VisitorTest, MaxSaladNoVisitor){
@@ -699,13 +700,13 @@ TEST(VisitorTest, MaxSaladStudentDecorator){
 	EXPECT_EQ(StuDiscount->receipt(),"Student Order:\nPERSONAL SALAD\nKALE SLAW WITH\n- GRAPE TOMATOES\n- CUCUMBERS\n- CORN\n- BLACK BEANS\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO\n- DICED BACON\nADD\n- GRILLED CHICKEN\n- GRILLED SALMON\n- SOY CHICKEN\nWITH BALSAMIC VINEGAR & OLIVE OIL ON SIDE");
 
 	Visitor* ves = new Visitor();
-	why->accept(ves);
+	StuDiscount->accept(ves);
 	std::string mes = ves->get_message();
 	
 	EXPECT_EQ(mes, "Oh Kale Yeah!\nWe go together like Vinegar and Oil...?\nYou put everything on! Wow, have you considered doing the same with a Burger?\nGood Luck with Finals!\n");
 }
 
-TEST(Decorators, BBQBasketSeniorDecorator){
+TEST(VisitorTest, BBQBasketSeniorDecorator){
         int sauce[3] = {0, 9, 0};
         char fries[2] = {'R', 'S'};
         int dipp[4] = {1, 4, 0, 0};
@@ -733,11 +734,11 @@ TEST(Decorators, BBQBasketSeniorDecorator){
         EXPECT_EQ(SenDiscount->price(), 10.6165);
         EXPECT_EQ(SenDiscount->receipt(), "Senior Order:\nWING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
 	
-	Vistor* ves = new Visitor();
-	basket->accept(ves);
+	Visitor* ves = new Visitor();
+	SenDiscount->accept(ves);
 	std::string mes = ves->get_message();
 	
-	EXPECT_EQ(mes, "It's wing o'clock! Next, 12!\nBBQ Supremacy! Not a fan of the Buff?\nNext time try our curly fries!\nDon't get lost in the (dipping) sauce\nThank you for all the hard work! UCR loves you!\n");
+	EXPECT_EQ(mes, "It's wing o'clock! Next, 12!\nBBQ Supremacy! Not a fan of the Buff?\nNext time try our curly fries!\nDon't get lost in the (dipping) sauce\nWe love Wing Lovers, but have you met our Burgers and Salads?\nThank you for all the hard work! UCR loves you!\n");
 }    
 
 TEST(VisitorTest, BBQBasketVeteranDecorator){
@@ -768,11 +769,11 @@ TEST(VisitorTest, BBQBasketVeteranDecorator){
         EXPECT_EQ(VetDiscount->price(), 9.992);
         EXPECT_EQ(VetDiscount->receipt(), "Veteran Order:\nWING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
 	
-	Vistor* ves = new Visitor();
-	basket->accept(ves);
+	Visitor* ves = new Visitor();
+	VetDiscount->accept(ves);
 	std::string mes = ves->get_message();
 	
-	EXPECT_EQ(mes, "It's wing o'clock! Next, 12!\nBBQ Supremacy! Not a fan of the Buff?\nNext time try our curly fries!\nDon't get lost in the (dipping) sauce\nThis is the least we can do. Thank You\n");
+	EXPECT_EQ(mes, "It's wing o'clock! Next, 12!\nBBQ Supremacy! Not a fan of the Buff?\nNext time try our curly fries!\nDon't get lost in the (dipping) sauce\nWe love Wing Lovers, but have you met our Burgers and Salads?\nThis is the least we can do. Thank You\n");
 }
 
 TEST(VisitorTest, BBQBasketEmployeeDecorator){
@@ -803,13 +804,13 @@ TEST(VisitorTest, BBQBasketEmployeeDecorator){
         EXPECT_EQ(EmpDiscount->price(), 6.245);
         EXPECT_EQ(EmpDiscount->receipt(), "Employee Order:\nWING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
 	
-	Vistor* ves = new Visitor();
-	basket->accept(ves);
+	Visitor* ves = new Visitor();
+	EmpDiscount->accept(ves);
 	std::string mes = ves->get_message();
 	
-	EXPECT_EQ(mes, "It's wing o'clock! Next, 12!\nBBQ Supremacy! Not a fan of the Buff?\nNext time try our curly fries!\nDon't get lost in the (dipping) sauce\nYour break started now.  Just kidding, enjoy!\n");
+	EXPECT_EQ(mes, "It's wing o'clock! Next, 12!\nBBQ Supremacy! Not a fan of the Buff?\nNext time try our curly fries!\nDon't get lost in the (dipping) sauce\nWe love Wing Lovers, but have you met our Burgers and Salads?\nYour break started now.  Just kidding, enjoy!\n");
 }
-	
+
 int main(int argc, char **argv){
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();

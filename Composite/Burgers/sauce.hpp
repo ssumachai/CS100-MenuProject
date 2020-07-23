@@ -68,7 +68,7 @@ class Sauce : public Base{
 		virtual void accept(Visitor* v){
 			if(lost.at(0)->receipt() == "NO SAUCE"){return;}
 			else{
-				for(unsigned i = 0; lost.size(); i++){
+				for(unsigned i = 0; i < lost.size(); i++){
 					v->visit_sauce();
 				}
 			}
