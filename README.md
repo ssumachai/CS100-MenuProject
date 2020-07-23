@@ -3,13 +3,13 @@
 > Author(s): Sumachai Suksanguan, Karsten Fields
 
 
-The two of us plan on creating a Menu Application that will utilize Composite, Decorator, and Visitor Design Patterns.
+The two of us have created a Menu Application that utilized Composite, Decorator, and Visitor Design Patterns.
 
 # Premise
 
-Foodservice is a growing industry, and as restaurants get more and more advanced, so will the technology needed.  We believe that using these patterns to design a functional menu option that allows users to keep better track of their items and food will be much more efficient in the long run. After all, food can be composed of many "smaller" ingredients, and "decorated" as well.  Utilising a Visitor Pattern will allow for more specific messages for our guests at the end of their receipt.
+Foodservice is a growing industry, and as restaurants get more and more advanced, so will the technology needed.  We believe that using these patterns to design a functional menu/register will allow both users and guest a quicker experience. After all, food is composed of many "smaller" ingredients, and "decorated" as well.  Utilising a Visitor Pattern will allow for more specific messages for our guests at the end of their receipt.
 
-This project will be coded primarily in C++.  The README. will be updated along the way, with all important aspects highlighted during the developmental process.  The program will be tested both by user-input during a demo, and pre-determined character arrays that will populate our constructors.  This will be further discussed in the testing portion of each design patterns implementation.
+This project will be coded primarily in C++.  The `README.md` will contain relevant informationre regarding Design Pattern explanation and overall implemenation.  The program will be tested both by user-input during a demo, and pre-determined character arrays that will populate our constructors.  This will be further discussed in the testing portion of each design patterns implementation.
 
 Please note, to reduce the amount of clutter at the beginning of files, there is an appropriate `include.hpp` in the root directory that contains all the appropriate `#include "filename"` commands.
 
@@ -29,11 +29,11 @@ class Base{
 
 # Utilization of Composite Pattern 
 
-Many foods are composed of smaller, more functional foods.  For simplicity, we will limiting the items on our menu to staples at certain restaurants.  In this case, guests will have the option of a Cheeseburger Basket, Wing Basket, or a Salad. For readability purposes, we have made placed all appropriate files into their respective directories.  The `Composite` Directory will contain the `base.hpp` file, along with 3 subdirectories that correspond to the following classes: `Burger`, `Wing`, and `Salad`.
+All foods are just composed of smaller foods.  For example, a bowl of spaghetti is composed of noodles, sauce, veggies, and meat.  For simplicity, we will limiting the items on our menu to staples at certain restaurants.  In this case, guests will have the option of a Cheeseburger Basket, Wing Basket, or a Salad. For readability purposes, we have made placed all appropriate files into their respective directories.  The `Composite` Directory will contain the `base.hpp` file, along with 3 subdirectories that correspond to the following classes: `Burger`, `Wing`, and `Salad`.
 
 ## Ingredients
 
-Every single food is composed of Ingredients.  So it makes sense that while `Base` serves as our super class, we would need a much more smaller, and friendly interface.  The smallest aspect of food, a single ingredient.  Our program will constantly be creating `Ingredients` objects, that are used in food construction, all with pre-determined prices and responsibilities.
+Every single food is composed of Ingredients.  So it makes sense that while `Base` serves as our super class, we would need a much smaller, friendlier interface.  The smallest aspect of food, is a single ingredient.  Our program will constantly be creating `Ingredients` objects, that are used in food construction, all with pre-determined prices and responsibilities.
 
 ```c++
 class Ingredients : public Base {
@@ -50,7 +50,7 @@ class Ingredients : public Base {
 
 ### Cheeseburger Basket
 
-Cheeseburgers come in several forms, with them often adding toppings and extras as they please.  With our program, the user will be able to select a Cheeseburger Base that includes: a bun, single burger patty, and cheese.  From there, guests may opt to include the following extras: tomatoes, lettuce, pickles, onions, bacon, an additional patty, an additional slice of cheese, ketchup, and/or mustard.
+Cheeseburgers come in several forms, with them often adding toppings and extras as they please.  With our program, the user will be able to select a Cheeseburger Base that includes: a bun, single burger patty, and cheese.  From there, guests may opt to include the following extras: tomatoes, lettuce, pickles, onions, bacon, an additional patty, an additional slice of cheese, ketchup, mustard, and/or A1 Sauce.
 
 ![Burger_UML](/Composite/Burgers/burger_composition.png)
 
@@ -235,11 +235,20 @@ TEST(BurgerTest, PlainBurger){
 
 # Utilization of Decorator Pattern
 
-There are several different groups of people who receive special discounts on their purchases. Such groups include students, senior citizens, veterans, and employees. Students get a 10% discount, Seniors get a 15% discount, veterans get a 20% discount, and employees get a 50% discount.
+There are several different groups of people who receive special discounts on their purchases. Such groups include students, senior citizens, veterans, and employees. 
 
-## Code Example for Decorator Pattern
+* Students get a 10% discount
+* Seniors get a 15% discount
+* Veterans get a 20% discount
+* Employees get a 50% discount
 
-Here is the code for the 'EmployeeDecorator' class:
+Naturally, you can't get a discount on something that doesn't exist, so all of our Concrete Decorator implementations must take an object of type `Base` during its initial construction. 
+
+![Decorator_UML](Decorator/DecoratorPattern.png)
+
+## Implementation of Decorator Pattern
+
+Below is the code for the `EmployeeDecorator` class:
 
 ```c++
 #ifndef __EMPLOYEEDECORATOR_HPP__
@@ -258,9 +267,11 @@ class EmployeeDecorator : public Base {
 
 #endif // __EMPLOYEEDECORATOR_HPP__
 ```
-Using the code above:
 
-Using an input of:
+> Note: All four concrete implementations of the Decorator feature very similiar `price()` and `receipt()` functions with the sole distinction being the amount of the discount, and appropriate header for the receipt.
+
+By using the code above and proving this input: 
+
 ```c++
 WingCount* twelve = new WingCount(12);
 WingSauce* combo = new WingSauce({6, 6, 0});
@@ -283,9 +294,11 @@ REG. FRIES w/ CAJUN
 + 2 RANCH(ES)
 ```
 
+> Note: **Employee Order** has been placed at the beginning of the order to indicate that an Employee has purchased that meal.
+
 ## Testing Decorator Design
 
-Our tests for the decorator design pattern will borrow most of the code from the composite pattern tests because decorator pattern simply builds on the composite pattern. The only difference in the tests is the creation of decorator objects, and checking the expected values of altered output.
+Decorator pattern use the objects that were passed in during construction and modify them.  Therefore, our tests for the decorator design pattern will utilize the objects that were previously created during composite pattern tests.  However, this time we must expect a reduction in price and the addition of a header at the beginning of the receipt.
 
 Here is an example test using the Google test suite:
 
@@ -317,9 +330,6 @@ TEST(Decorators, EmployeeDecorator){
 	EXPECT_EQ(EmpDiscount->receipt(), "Employee Order:\nWING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
 } 
 ```
-## UML Diagram for Decorator Pattern
-
-![Decorator_UML](Decorator/DecoratorPattern.png)
 
 # Utilization of Visitor Pattern
 
@@ -485,8 +495,89 @@ TEST(VisitorTest, ComboBurgerNoDecorator){
 Our program has been subjected to a myriad of testing that has put the program through multiple combinations of different foods with their own respective ingredients and the appropriate decorators. However, the only ensure that it works, it to see if it runs when given user input.  Therefore, the program acts by continously asking the user questions.
 
 The user interaction was implemented with 'main.cpp' where we go through a sequence of decisions to arrive at the final order. The sequence is as follows:
-1. ask if the user belongs to a specific group, such as students, or veterans
-2. ask the user what base item they want, such as a salad or basket of wings
-3. ask the user what specific ingredients they want on their base food item
 
-Following the user interaction, the user group type is used to calculate a discount, if any, and then outputs the total price and receipt.
+1. Ask if the user belongs to a specific group, such as students, or veterans.
+	* That information is then stored for a later calculation.
+2. Ask the user what base item they want, such as a salad or basket of wings.
+3. Ask the user what specific ingredients they want on their base food item.
+4. The item is "decorated" with the appropriate Discount modifier from Step 1.
+5. The `visit` and `accept` functions are called to create the users personalized message.
+6. Output price, receipt, and message
+
+Following the user interaction, the user group type is used to calculate a discount, if any, and then outputs the total price and receipt. From there the `visit` and `accept` function is used to create a personalized message for the user that.
+
+When Prompted, and entering this input:
+```
+Greetings!
+Are you:
+a student? - Enter 'u'
+55 or older? - Enter 's'
+a veteran? - Enter 'v'
+an employee? - Enter 'e'
+none of the above? - Enter 'o'
+Enter 'q' to quit.
+
+u
+
+Menu:
+1. Cheese Burger
+2. Wings
+3. Salad
+Please enter the number of the food item you want.
+2
+How many wings? ($1.00 each) [3/6/9/12]: 3
+Wing Sauce:
+How Many Buffalo Wings would you like? ($0.10 each) [1 - 3]: 1
+How Many BBQ Wings would you like? ($0.10 each) [1 - 2]: 1
+How many Plain Wings would you like? (FREE) [1 - 1]: 1
+Seasoning:
+Would you like:
+ - REG. FRIES ($1.59)[R]
+ - CURLY FRIES ($1.99)[C]
+ - HALFSIES FRIES ($1.79)[H]
+ - NONE (N)
+PLEASE ENTER (R/C/H/N): r
+Please select a fry seasoning:
+- SEA SALT (S)
+- CAJUN (C)
+- NONE(N)
+PLEASE ENTER (S/C/N): s
+Dipping sauce:
+Would you like any dipping sauces? (Y/N): y
+Ranch? ($0.25) [Y/N]:y
+Quantity? (Please enter a number): 1
+Blue Cheese? ($0.25) [Y/N]: n
+```
+> Note : In this case the input is u-3-1-1-1-r-s-y-y-1-n
+
+will yield the following output:
+
+```
+Your total is: $4.54
+
+Student Order:
+WING BASKET
+3 COMBO WINGS
+- 1 BUFFALO
+- 1 BBQ
+- 1 PLAIN
+REG. FRIES w/ SEA SALT
++ 1 RANCH(ES)
+Only 3? Let's shoot for 6!
+Buffalo, BBQ, and Plain?  Let's coat all of them next time!
+Next time try our curly fries!
+Don't get lost in the (dipping) sauce
+We love Wing Lovers, but have you met our Burgers and Salads?
+Good Luck with Finals!
+```
+> Note: Since the guest is a student, the Receipt prints "Good Luck with Finals!"
+
+# Conclusion
+
+Our project is the culmination of Composite, Decorator, and Visitor Design patterns.  Each design pattern uses the pattern that came before it, our implementation is the most efficient we could do at the moment.  Of course, there are multiple ways we can improve the project such as:
+
+* Allowing Multiple Item Types (Multiple Burgers, Burgers & Wings)
+* A loyalty program of sorts
+* A Readable GUI that actually outputs a receipt.
+
+However, this is our current pride and joy.  Please enjoy.
