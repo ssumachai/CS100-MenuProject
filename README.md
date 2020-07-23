@@ -283,7 +283,7 @@ REG. FRIES w/ CAJUN
 + 2 RANCH(ES)
 ```
 
-# Testing Decorator Design
+## Testing Decorator Design
 
 Our tests for the decorator design pattern will borrow most of the code from the composite pattern tests because decorator pattern simply builds on the composite pattern. The only difference in the tests is the creation of decorator objects, and checking the expected values of altered output.
 
@@ -321,5 +321,155 @@ TEST(Decorators, EmployeeDecorator){
 
 ![Decorator_UML](/Composite/Decorators/DecoratorPattern.png)
 
-### User Testing
-Will be written when implemented and developed.
+# Utilization of Visitor Pattern
+
+After a guest orders some food, there tends to a brief waiting period.  Most businesses want to use that time to market their other products and ensure that the guests attention is focused on the business and what they could potentially buy next.  After all most establishments fill their dining halls to the brim with advertisements for other products.  At the bottom of the receipt, each guest will receive a message based on the content of their order. By utilizing the `Visitor` class and member variable `std::string message`, we return an amusing message for the guest, filled with puns and suggestions.
+
+## Accept
+
+In order to implement these changes, we had to make some changes to our initial `base.hpp` file.  By including the pure virtual `accept()` function in the declaration, we made it so that every single object of type `Base` is able to interact with our visitor.
+
+```c++
+class Base{
+	public:
+		Base(){}
+		virtual double price() = 0;
+		virtual std::string receipt() = 0;
+		bool is_valid(char value){return (value != 'Y' && value != 'y' && value != 'N' && value != 'n');}
+		
+		//NEW
+		
+		virtual void accept(Visitor* v) = 0;
+};
+```
+Each `accept()` function must take in an object of type `Visitor` and then utilize that object in a certain manner.  Each instance of an `Ingredient`, from `Veggies` to `Dressing` has an overloaded `accept()` function that calls its appropriate `visit_member()` function.  Please note that for veribility purposes, some `visit_member()` functions require parameters to help determine the appropriate message.
+
+## Visit
+
+So the `accept()` function calls a `visit_member()` function, alright what now?  As you can see below, there are several functions that have specific names.  Naturally, the `Veggies` object will interact using the `visit_veggie()` function, and the `Burger` object will interact using the `visit_burger()` object.
+
+```c++
+class Visitor{
+	private:
+		int veggie_count;
+		int sauce_count;
+		int extra_count;
+		
+		int toppings_count;
+		int protein_count;
+		
+		std::string message;
+	public:
+		Visitor();
+		
+		void visit_veggie();
+		void visit_sauce();
+		void visit_extra();
+		void visit_burger();
+		
+		void visit_wing_count(int num);
+		void visit_wing_sauce(int num);
+		void visit_fry(char c);
+		void visit_dip(bool b);
+		void visit_wing();
+		
+		void visit_lettuce(char c);
+		void visit_toppings();
+		void visit_proteins();
+		void visit_dressing(char c);
+		void visit_salad();
+		
+		void visit_student();
+		void visit_employee();
+		void visit_senior();
+		void visit_veteran();
+		
+		std::string get_message();
+
+};
+```
+Now what exactly do these functions do? Despite there being a myriad of them, they all have similar properties.  Analyze what the guest ordered, and create a message based on that order.  
+## Get Message
+
+Our visitor utilizes a strategic combination of `visit_member()` and `accept()` to generate a message based on the guests selection.  If a guest ordered wings and selected to coat them in only Buffalo Sauce, our visitor pattern will suggest that next time they order some BBQ as well.  Perhaps our guest ordered a plain salad with no toppings, the visitor function will compose a message that suggests adding some of our many toppings the next time they visit.
+
+Using an input of
+```c++
+Lettuce* spring = new Lettuce('S');
+Toppings* myToppings = new Toppings({'Y', 'N', 'Y', 'N', 'Y', 'Y', 'Y', 'Y', 'N'});
+Protein* iTry = new Protein({'Y', 'N', 'N'});
+Dressing* heh = new Dressing({'S', 'N'})
+
+Salad* chai = new Salad(spring, myToppings, iTry, heh);
+EmployeeDecorator* mealPerk = new EmployeeDecorator(chai);
+```
+would construct my personal favorite salad, with an employee discount.  If we run:
+```c++
+Visitor* vis = new Visitor();
+mealPerk->accept(vis);
+
+std::cout << mealPerk->receipt() << std::endl << vis->get_message();
+```
+
+it would yeild an output of:
+```
+Employee Order:
+PERSONAL SALAD
+SPRING MIX WITH
+- GRAPE TOMATOES
+- CORN
+- CROUTONS
+- EGG
+- CHEESE BLEND
+- AVOCADO
+ADD
+- GRILLED CHICKEN
+WITH SOUTHWEST DRESSING
+
+Caution: Spring Mix does not bring forth Spring
+South West...wait where are we?
+Why not add just a little bit more!
+```
+
+## Testing Visitor Design
+
+Naturally, a message concerning an order should be done at the end of an order, when everything is already properly created.  Therefore, our we will be testing our `Visitor` class by having it visit Objects that have been created by our Composite and Decorator Designs respectively.
+
+If we reuse some tests from the above designs, and add in an object of type `Visitor`, we can test the functionality of the visit by checking to see if `visitor->get_message()` returns the correct message.
+
+```c++
+TEST(VisitorTest, ComboBurgerNoDecorator){
+	char array1[4] = {'Y','Y','Y','Y'};
+	Veggies* test1 = new Veggies(array1);
+
+	EXPECT_EQ(test1->price(), 0);
+	EXPECT_EQ(test1->receipt(), "TOMATOES\nLETTUCE\nPICKLES\nONIONS");
+
+	char array2[3] = {'N', 'N', 'N'};  
+        Extras* test2 = new Extras(array2);
+	
+	EXPECT_DOUBLE_EQ(test2->price(), 0.00);
+	EXPECT_EQ(test2->receipt(), "NO EXTRAS");
+
+	char array3[3] = {'Y','Y','N'};
+	Sauce* test3 = new Sauce(array3);
+
+	EXPECT_DOUBLE_EQ(test3->price(), 0);
+	EXPECT_EQ(test3->receipt(), "KETCHUP\nMUSTARD");
+	
+	Burger* bigMac = new Burger(test1, test2, test3);
+	EXPECT_DOUBLE_EQ(bigMac->price(), 3.50);
+	EXPECT_EQ(bigMac->receipt(), "PERSONAL BURGER\nADD\nTOMATOES\nLETTUCE\nPICKLES\nONIONS\nNO EXTRAS\nKETCHUP\nMUSTARD");
+	
+	Visitor* vis = new Visitor();
+	
+	bigMac->accept(vis);
+	std::string mes = vis->get_message();
+	
+	EXPECT_EQ(mes, "You added some toppings, why not take that extra step and add more!");
+
+}
+```
+> Note: In this object here, the burger we created had 6 out of a possible 10 condiments.  As a result, our visitor suggests to the guest that next time they should add just a teensy bit more.
+
+
