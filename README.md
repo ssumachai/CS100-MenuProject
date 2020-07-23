@@ -325,6 +325,14 @@ TEST(Decorators, EmployeeDecorator){
 
 After a guest orders some food, there tends to a brief waiting period.  Most businesses want to use that time to market their other products and ensure that the guests attention is focused on the business and what they could potentially buy next.  After all most establishments fill their dining halls to the brim with advertisements for other products.  At the bottom of the receipt, each guest will receive a message based on the content of their order. By utilizing the `Visitor` class and member variable `std::string message`, we return an amusing message for the guest, filled with puns and suggestions.
 
+![visitor_uml](Composite/Visitor/visitor_uml.png)
+
+> Note 1: The term `All ConcreteIngredients` refers to all subclasses that have inherited from type `Base`, meaning `Veggies`, `Extras`, `Sauce`, `WingCount`, `WingSauce`, `FrySeasoning`, `DippingSauce`. `Lettuce`, `Toppings`, `Protein`, `Dressing`. 
+
+> Note 2: The term `All MajorItems` refers to objects of type `Burger`, `Wing`, and `Salad`.
+
+> Note 3: The term `All ConcreteDecorators` refers to the four concrete decorators implemented: `Student Decorator`, `SeniorDecorator`, `VeteranDecorator`, and `EmployeeDecorator`.
+
 ## Accept
 
 In order to implement these changes, we had to make some changes to our initial `base.hpp` file.  By including the pure virtual `accept()` function in the declaration, we made it so that every single object of type `Base` is able to interact with our visitor.
@@ -472,4 +480,8 @@ TEST(VisitorTest, ComboBurgerNoDecorator){
 ```
 > Note: In this object here, the burger we created had 6 out of a possible 10 condiments.  As a result, our visitor suggests to the guest that next time they should add just a teensy bit more.
 
+# Main.cpp
 
+Our program has been subjected to a myriad of testing that has put the program through multiple combinations of different foods with their own respective ingredients and the appropriate decorators. However, the only ensure that it works, it to see if it runs when given user input.  Therefore, the program acts by continously asking the user questions.
+
+-- WILL CONTINUE --
