@@ -500,12 +500,15 @@ TEST(Decorators, SeniorDecorator){
         char fries[2] = {'R', 'S'};
         int dipp[4] = {1, 4, 0, 0};
 
-        WingCount* nine = new WingCount(9);                                                                                                       WingSauce* bbq = new WingSauce(sauce);                                                                                                    FrySeasoning* regSeaSalt = new FrySeasoning(fries);
+        WingCount* nine = new WingCount(9);
+	WingSauce* bbq = new WingSauce(sauce);
+	FrySeasoning* regSeaSalt = new FrySeasoning(fries);
         DippingSauce* dips = new DippingSauce(dipp);
 
         EXPECT_DOUBLE_EQ(nine->price(), 9.00);
         EXPECT_DOUBLE_EQ(bbq->price(), 0.90);
-        EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);                                                                                              EXPECT_DOUBLE_EQ(dips->price(), 1.00);
+        EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);
+	EXPECT_DOUBLE_EQ(dips->price(), 1.00);
 
         EXPECT_EQ(nine->receipt(), "9");
         EXPECT_EQ(bbq->receipt(), "BBQ WINGS");
@@ -524,12 +527,15 @@ TEST(Decorators, VeteranDecorator){
         char fries[2] = {'R', 'S'};
         int dipp[4] = {1, 4, 0, 0};
 
-        WingCount* nine = new WingCount(9);                                                                                                       WingSauce* bbq = new WingSauce(sauce);                                                                                                    FrySeasoning* regSeaSalt = new FrySeasoning(fries);
+        WingCount* nine = new WingCount(9);
+	WingSauce* bbq = new WingSauce(sauce);
+	FrySeasoning* regSeaSalt = new FrySeasoning(fries);
         DippingSauce* dips = new DippingSauce(dipp);
 
         EXPECT_DOUBLE_EQ(nine->price(), 9.00);
         EXPECT_DOUBLE_EQ(bbq->price(), 0.90);
-        EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);                                                                                              EXPECT_DOUBLE_EQ(dips->price(), 1.00);
+        EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);
+	EXPECT_DOUBLE_EQ(dips->price(), 1.00);
 
         EXPECT_EQ(nine->receipt(), "9");
         EXPECT_EQ(bbq->receipt(), "BBQ WINGS");
@@ -548,12 +554,15 @@ TEST(Decorators, EmployeeDecorator){
         char fries[2] = {'R', 'S'};
         int dipp[4] = {1, 4, 0, 0};
 
-        WingCount* nine = new WingCount(9);                                                                                                       WingSauce* bbq = new WingSauce(sauce);                                                                                                    FrySeasoning* regSeaSalt = new FrySeasoning(fries);
+        WingCount* nine = new WingCount(9);
+	WingSauce* bbq = new WingSauce(sauce);
+	FrySeasoning* regSeaSalt = new FrySeasoning(fries);
         DippingSauce* dips = new DippingSauce(dipp);
 
         EXPECT_DOUBLE_EQ(nine->price(), 9.00);
         EXPECT_DOUBLE_EQ(bbq->price(), 0.90);
-        EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);                                                                                              EXPECT_DOUBLE_EQ(dips->price(), 1.00);
+        EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);
+	EXPECT_DOUBLE_EQ(dips->price(), 1.00);
 
         EXPECT_EQ(nine->receipt(), "9");
         EXPECT_EQ(bbq->receipt(), "BBQ WINGS");
@@ -597,6 +606,208 @@ TEST(Visitor, PlainBasketNoDecorator){
 	std::string mes = vis->get_message();
 	
 	EXPECT_EQ(mes, "Only 3? Let's shoot for 6!\nGet some sauce in here! We have plenty!\nHaving trouble deciding? Next time get the halfsies!\nYour wings look lonely...Dip or Drown!\nWe love Wing Lovers, but have you met our Burgers and Salads?\n"); 
+}
+
+TEST(VisitorTest, ComboBurgerNoDecorator){
+	char array1[4] = {'Y','Y','Y','Y'};
+	Veggies* test1 = new Veggies(array1);
+
+	EXPECT_EQ(test1->price(), 0);
+	EXPECT_EQ(test1->receipt(), "TOMATOES\nLETTUCE\nPICKLES\nONIONS");
+
+	char array2[3] = {'N', 'N', 'N'};  
+        Extras* test2 = new Extras(array2);
+	
+	EXPECT_DOUBLE_EQ(test2->price(), 0.00);
+	EXPECT_EQ(test2->receipt(), "NO EXTRAS");
+
+	char array3[3] = {'Y','Y','N'};
+	Sauce* test3 = new Sauce(array3);
+
+	EXPECT_DOUBLE_EQ(test3->price(), 0);
+	EXPECT_EQ(test3->receipt(), "KETCHUP\nMUSTARD");
+	
+	Burger* bigMac = new Burger(test1, test2, test3);
+	EXPECT_DOUBLE_EQ(bigMac->price(), 3.50);
+	EXPECT_EQ(bigMac->receipt(), "PERSONAL BURGER\nADD\nTOMATOES\nLETTUCE\nPICKLES\nONIONS\nNO EXTRAS\nKETCHUP\nMUSTARD");
+	
+	Visitor* vis = new Visitor();
+	
+	bigMac->accept(vis);
+	std::string mes = vis->get_message();
+	
+	EXPECT_EQ(mes, "You added some toppings, why not take that extra step and add more!");
+}
+
+TEST(VisitorTest, MaxSaladNoVisitor){
+	char array1[9] = {'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y'};
+	char array2[3] = {'Y', 'Y', 'Y'};
+	char array3[3] = {'V', 'Y'};
+	
+	Lettuce* kale = new Lettuce('K');
+	Toppings* allToppings = new Toppings(array1);
+	Protein* bigGainz = new Protein(array2);
+	Dressing* oh = new Dressing(array3);
+	
+	EXPECT_DOUBLE_EQ(kale->price(), 3.00);
+	EXPECT_DOUBLE_EQ(allToppings->price(), 2.00);
+	EXPECT_DOUBLE_EQ(bigGainz->price(), 5.25);
+	EXPECT_DOUBLE_EQ(oh->price(), 0);
+	
+	EXPECT_EQ(kale->receipt(), "KALE SLAW");
+	EXPECT_EQ(allToppings->receipt(), "- GRAPE TOMATOES\n- CUCUMBERS\n- CORN\n- BLACK BEANS\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO\n- DICED BACON");
+	EXPECT_EQ(bigGainz->receipt(), "- GRILLED CHICKEN\n- GRILLED SALMON\n- SOY CHICKEN");
+	EXPECT_EQ(oh->receipt(), "BALSAMIC VINEGAR & OLIVE OIL ON SIDE");
+
+	Salad* why = new Salad(kale, allToppings, bigGainz, oh);
+	EXPECT_DOUBLE_EQ(why->price(), 10.25);
+	EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nKALE SLAW WITH\n- GRAPE TOMATOES\n- CUCUMBERS\n- CORN\n- BLACK BEANS\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO\n- DICED BACON\nADD\n- GRILLED CHICKEN\n- GRILLED SALMON\n- SOY CHICKEN\nWITH BALSAMIC VINEGAR & OLIVE OIL ON SIDE");
+	
+	Visitor* ves = new Visitor();
+	why->accept(ves);
+	std::string mes = ves->get_message();
+	
+	EXPECT_EQ(mes, "Oh Kale Yeah!\nWe go together like Vinegar and Oil...?\nYou put everything on! Wow, have you considered doing the same with a Burger?\n");
+}
+
+TEST(VisitorTest, MaxSaladStudentDecorator){
+	char array1[9] = {'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y'};
+        char array2[3] = {'Y', 'Y', 'Y'};
+        char array3[3] = {'V', 'Y'};
+
+        Lettuce* kale = new Lettuce('K');
+        Toppings* allToppings = new Toppings(array1);
+        Protein* bigGainz = new Protein(array2);
+        Dressing* oh = new Dressing(array3);
+
+        EXPECT_DOUBLE_EQ(kale->price(), 3.00);
+        EXPECT_DOUBLE_EQ(allToppings->price(), 2.00);
+        EXPECT_DOUBLE_EQ(bigGainz->price(), 5.25);
+        EXPECT_DOUBLE_EQ(oh->price(), 0);
+
+        EXPECT_EQ(kale->receipt(), "KALE SLAW");
+        EXPECT_EQ(allToppings->receipt(), "- GRAPE TOMATOES\n- CUCUMBERS\n- CORN\n- BLACK BEANS\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO\n- DICED BACON");
+        EXPECT_EQ(bigGainz->receipt(), "- GRILLED CHICKEN\n- GRILLED SALMON\n- SOY CHICKEN");
+        EXPECT_EQ(oh->receipt(), "BALSAMIC VINEGAR & OLIVE OIL ON SIDE");                                 
+        
+	Salad* why = new Salad(kale, allToppings, bigGainz, oh);
+        EXPECT_DOUBLE_EQ(why->price(), 10.25);
+        EXPECT_EQ(why->receipt(), "PERSONAL SALAD\nKALE SLAW WITH\n- GRAPE TOMATOES\n- CUCUMBERS\n- CORN\n- BLACK BEANS\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO\n- DICED BACON\nADD\n- GRILLED CHICKEN\n- GRILLED SALMON\n- SOY CHICKEN\nWITH BALSAMIC VINEGAR & OLIVE OIL ON SIDE");
+	
+	StudentDecorator* StuDiscount = new StudentDecorator(why);
+	EXPECT_EQ(StuDiscount->price(), 9.225);
+	EXPECT_EQ(StuDiscount->receipt(),"Student Order:\nPERSONAL SALAD\nKALE SLAW WITH\n- GRAPE TOMATOES\n- CUCUMBERS\n- CORN\n- BLACK BEANS\n- CROUTONS\n- EGG\n- CHEESE BLEND\n- AVOCADO\n- DICED BACON\nADD\n- GRILLED CHICKEN\n- GRILLED SALMON\n- SOY CHICKEN\nWITH BALSAMIC VINEGAR & OLIVE OIL ON SIDE");
+
+	Visitor* ves = new Visitor();
+	why->accept(ves);
+	std::string mes = ves->get_message();
+	
+	EXPECT_EQ(mes, "Oh Kale Yeah!\nWe go together like Vinegar and Oil...?\nYou put everything on! Wow, have you considered doing the same with a Burger?\nGood Luck with Finals!\n");
+}
+
+TEST(Decorators, BBQBasketSeniorDecorator){
+        int sauce[3] = {0, 9, 0};
+        char fries[2] = {'R', 'S'};
+        int dipp[4] = {1, 4, 0, 0};
+
+        WingCount* nine = new WingCount(9);
+	WingSauce* bbq = new WingSauce(sauce);
+	FrySeasoning* regSeaSalt = new FrySeasoning(fries);
+        DippingSauce* dips = new DippingSauce(dipp);
+
+        EXPECT_DOUBLE_EQ(nine->price(), 9.00);
+        EXPECT_DOUBLE_EQ(bbq->price(), 0.90);
+        EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);
+	EXPECT_DOUBLE_EQ(dips->price(), 1.00);
+
+        EXPECT_EQ(nine->receipt(), "9");
+        EXPECT_EQ(bbq->receipt(), "BBQ WINGS");
+        EXPECT_EQ(regSeaSalt->receipt(), "REG. FRIES w/ SEA SALT");
+        EXPECT_EQ(dips->receipt(), "+ 4 RANCH(ES)");                                      
+	
+	Wing* basket = new Wing(nine, bbq, regSeaSalt, dips);
+        EXPECT_DOUBLE_EQ(basket->price(), 12.49);
+        EXPECT_EQ(basket->receipt(), "WING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+
+	SeniorDecorator* SenDiscount = new SeniorDecorator(basket);
+        EXPECT_EQ(SenDiscount->price(), 10.6165);
+        EXPECT_EQ(SenDiscount->receipt(), "Senior Order:\nWING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+	
+	Vistor* ves = new Visitor();
+	basket->accept(ves);
+	std::string mes = ves->get_message();
+	
+	EXPECT_EQ(mes, "It's wing o'clock! Next, 12!\nBBQ Supremacy! Not a fan of the Buff?\nNext time try our curly fries!\nDon't get lost in the (dipping) sauce\nThank you for all the hard work! UCR loves you!\n");
+}    
+
+TEST(VisitorTest, BBQBasketVeteranDecorator){
+        int sauce[3] = {0, 9, 0};
+        char fries[2] = {'R', 'S'};
+        int dipp[4] = {1, 4, 0, 0};
+
+        WingCount* nine = new WingCount(9);
+	WingSauce* bbq = new WingSauce(sauce);
+	FrySeasoning* regSeaSalt = new FrySeasoning(fries);
+        DippingSauce* dips = new DippingSauce(dipp);
+
+        EXPECT_DOUBLE_EQ(nine->price(), 9.00);
+        EXPECT_DOUBLE_EQ(bbq->price(), 0.90);
+        EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);
+	EXPECT_DOUBLE_EQ(dips->price(), 1.00);
+
+        EXPECT_EQ(nine->receipt(), "9");
+        EXPECT_EQ(bbq->receipt(), "BBQ WINGS");
+        EXPECT_EQ(regSeaSalt->receipt(), "REG. FRIES w/ SEA SALT");
+        EXPECT_EQ(dips->receipt(), "+ 4 RANCH(ES)");                        
+	
+	Wing* basket = new Wing(nine, bbq, regSeaSalt, dips);
+        EXPECT_DOUBLE_EQ(basket->price(), 12.49);
+        EXPECT_EQ(basket->receipt(), "WING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+
+        VeteranDecorator* VetDiscount = new VeteranDecorator(basket);
+        EXPECT_EQ(VetDiscount->price(), 9.992);
+        EXPECT_EQ(VetDiscount->receipt(), "Veteran Order:\nWING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+	
+	Vistor* ves = new Visitor();
+	basket->accept(ves);
+	std::string mes = ves->get_message();
+	
+	EXPECT_EQ(mes, "It's wing o'clock! Next, 12!\nBBQ Supremacy! Not a fan of the Buff?\nNext time try our curly fries!\nDon't get lost in the (dipping) sauce\nThis is the least we can do. Thank You\n");
+}
+
+TEST(VisitorTest, BBQBasketEmployeeDecorator){
+        int sauce[3] = {0, 9, 0};
+        char fries[2] = {'R', 'S'};
+        int dipp[4] = {1, 4, 0, 0};
+
+        WingCount* nine = new WingCount(9);
+	WingSauce* bbq = new WingSauce(sauce);
+	FrySeasoning* regSeaSalt = new FrySeasoning(fries);
+        DippingSauce* dips = new DippingSauce(dipp);
+
+        EXPECT_DOUBLE_EQ(nine->price(), 9.00);
+        EXPECT_DOUBLE_EQ(bbq->price(), 0.90);
+        EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);
+	EXPECT_DOUBLE_EQ(dips->price(), 1.00);
+
+        EXPECT_EQ(nine->receipt(), "9");
+        EXPECT_EQ(bbq->receipt(), "BBQ WINGS");
+        EXPECT_EQ(regSeaSalt->receipt(), "REG. FRIES w/ SEA SALT");
+        EXPECT_EQ(dips->receipt(), "+ 4 RANCH(ES)");                                                                                                                                                                                              
+	
+	Wing* basket = new Wing(nine, bbq, regSeaSalt, dips);
+        EXPECT_DOUBLE_EQ(basket->price(), 12.49);
+        EXPECT_EQ(basket->receipt(), "WING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+
+        EmployeeDecorator* EmpDiscount = new EmployeeDecorator(basket);
+        EXPECT_EQ(EmpDiscount->price(), 6.245);
+        EXPECT_EQ(EmpDiscount->receipt(), "Employee Order:\nWING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+	
+	Vistor* ves = new Visitor();
+	basket->accept(ves);
+	std::string mes = ves->get_message();
+	
+	EXPECT_EQ(mes, "It's wing o'clock! Next, 12!\nBBQ Supremacy! Not a fan of the Buff?\nNext time try our curly fries!\nDon't get lost in the (dipping) sauce\nYour break started now.  Just kidding, enjoy!\n");
 }
 	
 int main(int argc, char **argv){
