@@ -9,7 +9,11 @@ class StudentDecorator : public Base {
 	public:
 		StudentDecorator(Base* b){this->b = b;}
     		virtual double price(){return b->price() - (0.1 * b->price());}
-		virtual std::string receipt(){return "Student Order:\n" + b->receipt();} 
+		virtual std::string receipt(){return "Student Order:\n" + b->receipt();}
+		virtual void accept(Visitor* v){
+			b->accept(v);
+			v->visit_student();
+		} 
 };
 
 #endif // __STUDENTDECORATOR_HPP__

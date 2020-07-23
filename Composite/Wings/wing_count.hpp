@@ -21,6 +21,9 @@ class WingCount : public Base{
 			return cost;
 		}
 		virtual std::string receipt(){return std::to_string(num);}
+		virtual void accept(Visitor* v){
+			v->visit_wing_count(num);
+		}
 };
 
 #endif // __WING_COUNT_HPP__ 

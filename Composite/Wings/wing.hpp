@@ -23,6 +23,14 @@ class Wing : public Base {
 			str = "WING BASKET\n" + A[0]->receipt() + ' ' + A[1]->receipt() + '\n' + A[2]->receipt() + '\n' + A[3]->receipt();
 			return str;
 		}
+		virtual void accept(Visitor* v){
+			A[0]->accept(v);
+			A[1]->accept(v);
+			A[2]->accept(v);
+			A[3]->accept(v);
+			
+			v->visit_wing();
+		}
 };
 
 #endif //__WINGS_HPP__

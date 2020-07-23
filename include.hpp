@@ -20,5 +20,5 @@
 #include "Composite/Decorators/SeniorDecorator.hpp"   
 #include "Composite/Decorators/VeteranDecorator.hpp"
 #include "Composite/Decorators/EmployeeDecorator.hpp"
-
+#include "Composite/Visitor/visitor.hpp"
 #endif // __INCLUDE_HPP__

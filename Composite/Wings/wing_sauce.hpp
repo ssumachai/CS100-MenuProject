@@ -52,6 +52,42 @@ class WingSauce : public Base {
 
 			return str;
 	}
+	virtual void accept(Visitor* v){
+		if(count[0] >= 1){
+			if(count[1] >= 1){
+				if(count[2] >= 1){
+					v->visit_wing_sauce(0);
+				}
+				else{
+					v->visit_wing_sauce(1);
+				}
+			}
+			else{
+				if(count[2] >= 1){
+					v->visit_wing_sauce(2);
+				}
+				else{
+					v->visit_wing_sauce(3);
+				}
+			}
+		}
+		else{
+			if(count[1] >= 1){
+				if(count[2] >= 1){
+					v->visit_wing_sauce(4);
+				}
+				else{
+					v->visit_wing_sauce(5);
+				}
+			}
+			else{
+				if(count[2] >= 1){
+					v->visit_wing_sauce(6);
+				}
+				else{}
+			}
+		}
+	}	
 };
 
 #endif // __WING_SAUCE_HPP__

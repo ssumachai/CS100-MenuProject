@@ -95,6 +95,29 @@ class Dressing : public Base {
 	}
 	virtual double price(){return 0.00;}
 	virtual std::string receipt(){return coat->receipt();}
+	virtual void accept(Visitor* v){
+		std::string why = coat->receipt();
+		
+		if(why == "CAESAR DRESSING" || why == "CAESAR DRESSING ON SIDE"){
+				v->visit_dressing('C');
+		}
+		else if(why == "RANCH DRESSING" || why == "RANCH DRESSING ON SIDE"){
+				v->visit_dressing('R');
+		}
+		else if(why == "BLUE CHEESE" || why == "BLUE CHEESE ON SIDE"){
+				v->visit_dressing('B');
+		}
+		else if(why == "BALSAMIC VINEGAR & OLIVE OIL" || why == "BALSAMIC VINEGAR & OLIVE OIL ON SIDE"){
+				v->visit_dressing('V');
+		}
+		else if(why == "SOUTHWEST DRESSING" || why == "SOUTHWEST DRESSING ON SIDE"){
+				v->visit_dressing('S');
+		}
+		else if(why == "NO DRESSING"){
+				v->visit_dressing('N');
+		}
+		else{}
+	}
 };
 
 #endif // __DRESSING_HPP__

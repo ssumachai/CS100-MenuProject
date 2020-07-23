@@ -110,6 +110,23 @@ class FrySeasoning : public Base{
 			str = fryType->receipt() + ' ' + seasoning->receipt();
 			return str;
 		}
+		virtual void accept(Visitor* v){
+			std::string why = fryType->receipt();
+
+				if(why == "REG. FRIES"){
+					v->visit_fry('R');
+				}
+				else if(why == "CURLY FRIES"){
+					v->visit_fry('C');
+				}
+				else if(why == "HALFSIES FRIES"){
+					v->visit_fry('H');
+				}
+				else if(why == "NO FRIES"){
+					v->visit_fry('N');
+				}
+				else{}
+		}
 };
 
 #endif // __FRY_SEASONING_HPP__		

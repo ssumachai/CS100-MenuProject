@@ -82,6 +82,9 @@ class DippingSauce : public Base {
 			}
 			return str;
 		}
+		virtual void accept(Visitor* v){
+			v->visit_dip(dips.at(0)->receipt() != "NO DIP");
+		}
 };
 
 #endif // __FRY_SEASONING_HPP__

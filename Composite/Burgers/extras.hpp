@@ -62,6 +62,14 @@ class Extras : public Base{
 			str += more.at(sz - 1)->receipt();
 			return str;
 		}
+		virtual void accept(Visitor* v){
+			if(more.at(0)->receipt() == "NO EXTRAS"){return;}
+			else{
+				for(unsigned i = 0; i < more.size(); i++){
+					v->visit_extra();
+				}
+			}
+		}
 };
 
 #endif // __EXTRAS_HPP__

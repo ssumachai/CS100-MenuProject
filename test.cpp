@@ -566,6 +566,38 @@ TEST(Decorators, EmployeeDecorator){
         EXPECT_EQ(EmpDiscount->price(), 6.245);
         EXPECT_EQ(EmpDiscount->receipt(), "Employee Order:\nWING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
 }
+
+TEST(Visitor, PlainBasketNoDecorator){
+	int sauce[3] = {0, 0, 3};
+	char fries[2] = {'N', 'N'};
+	int dipp[4] = {0, 0, 0, 0};
+	
+	WingCount* three = new WingCount(3);
+	WingSauce* plain = new WingSauce(sauce);
+	FrySeasoning* noFries = new FrySeasoning(fries);
+	DippingSauce* dips = new DippingSauce(dipp);
+	
+	EXPECT_DOUBLE_EQ(three->price(), 3.00);
+	EXPECT_DOUBLE_EQ(plain->price(), 0.00);
+	EXPECT_DOUBLE_EQ(noFries->price(), 0.00);
+	EXPECT_DOUBLE_EQ(dips->price(), 0.00);
+	
+	EXPECT_EQ(three->receipt(), "3");
+	EXPECT_EQ(plain->receipt(), "PLAIN WINGS");
+	EXPECT_EQ(noFries->receipt(), "NO FRIES ");
+	EXPECT_EQ(dips->receipt(), "NO SAUCE");
+	
+	Wing* basket = new Wing(three, plain, noFries, dips);
+	EXPECT_DOUBLE_EQ(basket->price(), 3.00);
+	EXPECT_EQ(basket->receipt(), "WING BASKET\n3 PLAIN WINGS\nNO FRIES \nNO SAUCE");
+
+	Visitor* vis = new Visitor();
+	
+	basket->accept(vis);
+	std::string mes = vis->get_message();
+	
+	EXPECT_EQ(mes, "Only 3? Let's shoot for 6!\nGet some sauce in here! We have plenty!\nHaving trouble deciding? Next time get the halfsies!\nYour wings look lonely...Dip or Drown!\nWe love Wing Lovers, but have you met our Burgers and Salads?\n"); 
+}
 	
 int main(int argc, char **argv){
 	::testing::InitGoogleTest(&argc, argv);
