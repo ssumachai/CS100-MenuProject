@@ -9,55 +9,64 @@ class Toppings : public Base {
 	public:
 		Toppings(){
 			char input;
-			
+		
+			input = 'c';	
 			while(is_valid(input)){
 				std::cout << "Grape Tomatoes? (FREE) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){topp.push_back(new Ingredients("GRAPE TOMATOES", 0.00));}
 				else{}
 			}
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "Cucumbers? (FREE) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){topp.push_back(new Ingredients("CUCUMBERS", 0.00));}
 				else{}
 			}
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "Corn? (FREE) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){topp.push_back(new Ingredients("CORN", 0.00));}
 				else{}
 			}
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "Black Beans? (FREE) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){topp.push_back(new Ingredients("BLACK BEANS", 0.00));} 
 				else{}
 			}	
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "Croutons? (FREE) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){topp.push_back(new Ingredients("CROUTONS", 0.00));}
 				else{}
 			}
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "Egg? (FREE) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){topp.push_back(new Ingredients("EGG", 0.00));}
 				else{}
 			}
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "Cheese Blend? (FREE) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){topp.push_back(new Ingredients("CHEESE BLEND", 0.00));}
 				else{}
 			}
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "Avocado? ($1.25) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){topp.push_back(new Ingredients("AVOCADO", 1.25));} 
 				else{}
 			}	
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "Diced Bacon? ($0.75) [Y/N]: ";
 				std::cin >> input;

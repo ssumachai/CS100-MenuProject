@@ -10,19 +10,22 @@ class Sauce : public Base{
 	public:
 		Sauce(){
 			char input;
-
+			
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "Ketchup? (FREE) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){lost.push_back(new Ingredients("KETCHUP", 0));} 
 				else{}
 			}
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "Mustard? (FREE) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){lost.push_back(new Ingredients("MUSTARD", 0));}
 				else{}
 			}
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "A1 Sauce ($0.50)? [Y/N]: ";
 				std::cin >> input;

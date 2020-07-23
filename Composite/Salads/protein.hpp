@@ -10,18 +10,21 @@ class Protein : public Base {
 		Protein(){
 			char input;
 			
+			input = 'c';	
 			while(is_valid(input)){
 				std::cout << "Chicken? ($1.50) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){gainz.push_back(new Ingredients("GRILLED CHICKEN", 1.50));} 
 				else{}
 			}
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "Salmon? ($2.00) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){gainz.push_back(new Ingredients("GRILLED SALMON", 2.00));}
 				else{}
 			}
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "Soy Chicken? ($1.75) [Y/N]: ";
 				std::cin >> input;

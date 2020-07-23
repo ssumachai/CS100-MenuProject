@@ -17,12 +17,14 @@ class Extras : public Base{
 				if(input == 'Y' || input == 'y'){more.push_back(new Ingredients("EXTRA PATTY", 2.00));} 
 				else{}
 			}
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "Bacon? ($1.50) [Y/N]: ";
 				std::cin >> input;
 				if(input == 'Y' || input == 'y'){more.push_back(new Ingredients("BACON", 1.50));}
 				else{}
 			}
+			input = 'c';
 			while(is_valid(input)){
 				std::cout << "Extra Cheese? ($0.50) [Y/N]: ";
 				std::cin >> input;
