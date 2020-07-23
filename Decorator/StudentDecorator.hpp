@@ -1,7 +1,7 @@
 #ifndef __STUDENTDECORATOR_HPP__
 #define __STUDENTDECORATOR_HPP__
 
-#include "../base.hpp"
+#include "../Composite/base.hpp"
 
 class StudentDecorator : public Base {
 	private:

@@ -64,8 +64,8 @@ class Sauce : public Base{
 		virtual std::string receipt(){
 			std::string str;
 			int sz = lost.size();
-			for(int i = 0; i < sz - 1; i++){str = str + lost.at(i)->receipt() + '\n';}
-			str += lost.at(sz - 1)->receipt();
+			for(int i = 0; i < sz - 1; i++){str = str + "- " + lost.at(i)->receipt() + '\n';}
+			str = str + "- " + lost.at(sz - 1)->receipt();
 			return str;
 		}
 		virtual void accept(Visitor* v){

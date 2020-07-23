@@ -10,7 +10,7 @@ class Lettuce : public Base {
 		Lettuce(){
 			char input;
 			while(input != 'R' && input != 'r' && input != 'I' && input != 'i' && input != 'S' && input != 's' && input != 'K' && input != 'k'){
-				std::cout << "Please select a Lettuce Option ($2.00 BASE):\n- ROMAINE (R)\n- ICEBERG (I)\n - SPRING MIX (+ $0.25) [S]\n - KALE (+ $1.00) [K]\nPLEASE ENTER (R/I/S/K):";
+				std::cout << "Please select a Lettuce Option ($2.00 BASE):\n- ROMAINE (R)\n- ICEBERG (I)\n- SPRING MIX (+ $0.25) [S]\n- KALE (+ $1.00) [K]\nPLEASE ENTER (R/I/S/K):";
 				std::cin >> input;
 			}
 

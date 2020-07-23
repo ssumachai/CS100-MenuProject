@@ -29,19 +29,19 @@ class Visitor{
 			int sum = veggie_count + sauce_count + extra_count;
 			
 			if(sum == 10){
-				message = "You added everything you could! Maybe try some Wings or a Salad Next Time!";
+				message = "You added everything you could! Maybe try some Wings or a Salad Next Time!\n";
 			}
 			else if(6 <= sum && sum < 10){
-				message = "You added some toppings, why not take that extra step and add more!";
+				message = "You added some toppings, why not take that extra step and add more!\n";
 			}
 			else if(3 <= sum && sum < 6){
-				message = "Try something new! We have a lot to offer!";
+				message = "Try something new! We have a lot to offer!\n";
 			}
 			else if(1 <= sum && sum < 3){
-				message = "A bit picky are we?  That's fine, our burgers are still great!";
+				message = "A bit picky are we?  That's fine, our burgers are still great!\n";
 			}
 			else{
-				message = "Maybe try adding some toppings next time!  :(";
+				message = "Maybe try adding some toppings next time!  :(\n";
 			}
 		}
 		

@@ -3,6 +3,8 @@
 
 #include<iostream>
 #include<string>
+#include <iomanip>
+
 using namespace std;
 
 int main(){
@@ -22,46 +24,45 @@ int main(){
         cin >> baseChoice;
         
         if (baseChoice == 1) {
-            cout << "Extras:\n";
-            Extras* E = new Extras();
-            
             cout << "Veggies:\n";
             Veggies* V = new Veggies();
             
+	    cout << "Extras:\n";
+            Extras* E = new Extras();
+		
             cout << "Sauce:\n";
             Sauce* S = new Sauce();
             
             Meal = new Burger(V, E, S);
 	}
 	else if (baseChoice == 2) {
-          	cout << "How many wings do you want? Enter a number:\n";
-            cin >> numWings;
-            WingCount* WC = new WingCount(numWings);
-            
-          	cout << "Dipping sauce:\n";
-            DippingSauce* DS = new DippingSauce();
-            
-            cout << "Seasoning:\n";
-            FrySeasoning* FS = new FrySeasoning();
+            WingCount* WC = new WingCount();
             
             cout << "Wing Sauce:\n";
             WingSauce* WS = new WingSauce(WC);
+
+            cout << "Seasoning:\n";
+            FrySeasoning* FS = new FrySeasoning();
+
+            cout << "Dipping sauce:\n";
+            DippingSauce* DS = new DippingSauce();
+            
             
             Meal = new Wing(WC, WS, FS, DS);
 	}
 	else if (baseChoice == 3) {
-          	cout << "Lettuce type:\n";
+            cout << "Lettuce type:\n";
             Lettuce* L = new Lettuce();
             
-          	cout << "Toppings:\n";
+            cout << "Toppings:\n";
             Toppings* T = new Toppings();
-            
-            cout << "Dressings:\n";
-            Dressing* D = new Dressing();
-            
+               
             cout << "Protein:\n";
             Protein* P = new Protein();
             
+	    cout << "Dressings:\n";
+            Dressing* D = new Dressing();
+
             Meal = new Salad(L, T, P, D);
 	}
 	else {
@@ -87,9 +88,11 @@ int main(){
                 default:
                         return 0;
         }
-
-        cout << "\nYour total is: $" << Final->price() << endl << endl;
-        cout << Final->receipt() << endl;
+	Visitor* vis = new Visitor();
+	Final->accept(vis);
+	
+        cout << "\nYour total is: $" << fixed << setprecision(2) << Final->price() << endl << endl;
+        cout << Final->receipt() << endl << vis->get_message() << endl;
 
         return 0;
 }

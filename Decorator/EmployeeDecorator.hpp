@@ -1,7 +1,7 @@
 #ifndef __EMPLOYEEDECORATOR_HPP__
 #define __EMPLOYEEDECORATOR_HPP__
 
-#include "../base.hpp"
+#include "../Composite/base.hpp"
 
 class EmployeeDecorator : public Base {
         private:

@@ -60,8 +60,8 @@ class Extras : public Base{
 		virtual std::string receipt(){
 			std::string str;
 			int sz = more.size();
-			for(unsigned i = 0; i < sz - 1; i++){str = str + more.at(i)->receipt() + '\n';}
-			str += more.at(sz - 1)->receipt();
+			for(unsigned i = 0; i < sz - 1; i++){str = str + "- " + more.at(i)->receipt() + '\n';}
+			str = str + "- " + more.at(sz - 1)->receipt();
 			return str;
 		}
 		virtual void accept(Visitor* v){

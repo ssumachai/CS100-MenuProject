@@ -1,7 +1,7 @@
 #ifndef __SENIORDECORATOR_HPP__
 #define __SENIORDECORATOR_HPP__
 
-#include "../base.hpp"
+#include "../Composite/base.hpp"
 
 class SeniorDecorator : public Base {
         private:

@@ -12,7 +12,7 @@ class Dressing : public Base {
 			std::string name;
 			bool side = false;
 			while(input != 'C' && input != 'c' && input != 'R' && input != 'r' && input != 'B' && input != 'b' && input != 'V' && input != 'v' && input != 'S' && input != 's' && input != 'N' && input != 'n'){
-				std::cout << "Please Select a Dressing (FREE):\n - CAESAR (C)\n - RANCH (R)\n - BLUE CHEESE (B)\n - BALSAMIC/OLIVE (V)\n- SOUTHWEST (S)\n- NO DRESSING (N)\nPLEASE ENTER (R/C/B/V/S/N): ";
+				std::cout << "Please Select a Dressing (FREE):\n- CAESAR (C)\n- RANCH (R)\n- BLUE CHEESE (B)\n- BALSAMIC/OLIVE (V)\n- SOUTHWEST (S)\n- NO DRESSING (N)\nPLEASE ENTER (R/C/B/V/S/N): ";
 				std::cin >> input;			
 			}
 			if(input != 'N' && input == 'n'){

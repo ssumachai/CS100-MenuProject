@@ -1,7 +1,7 @@
 #ifndef __VETERANDECORATOR_HPP__
 #define __VETERANDECORATOR_HPP__
 
-#include "../base.hpp"
+#include "../Composite/base.hpp"
 
 class VeteranDecorator : public Base {
         private:

@@ -2,7 +2,7 @@
 #define __BASE_HPP__
 
 #include <iostream>
-#include "Visitor/visitor.hpp"
+#include "../Visitor/visitor.hpp"
 
 class Base{
 	public:

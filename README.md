@@ -319,13 +319,13 @@ TEST(Decorators, EmployeeDecorator){
 ```
 ## UML Diagram for Decorator Pattern
 
-![Decorator_UML](/Composite/Decorators/DecoratorPattern.png)
+![Decorator_UML](Decorator/DecoratorPattern.png)
 
 # Utilization of Visitor Pattern
 
 After a guest orders some food, there tends to a brief waiting period.  Most businesses want to use that time to market their other products and ensure that the guests attention is focused on the business and what they could potentially buy next.  After all most establishments fill their dining halls to the brim with advertisements for other products.  At the bottom of the receipt, each guest will receive a message based on the content of their order. By utilizing the `Visitor` class and member variable `std::string message`, we return an amusing message for the guest, filled with puns and suggestions.
 
-![visitor_uml](Composite/Visitor/visitor_uml.png)
+![visitor_uml](Visitor/visitor_uml.png)
 
 > Note 1: The term `All ConcreteIngredients` refers to all subclasses that have inherited from type `Base`, meaning `Veggies`, `Extras`, `Sauce`, `WingCount`, `WingSauce`, `FrySeasoning`, `DippingSauce`. `Lettuce`, `Toppings`, `Protein`, `Dressing`. 
 

@@ -68,9 +68,9 @@ class Veggies : public Base{
 		int sz = selection.size();
 		std::string str = "";
 		for(unsigned i = 0; i < sz - 1; i++){
-			str = str + selection.at(i)->receipt() + '\n';
+			str = str + "- " + selection.at(i)->receipt() + '\n';
 		}
-		str = str + selection.at(sz - 1)->receipt();
+		str = str + "- " + selection.at(sz - 1)->receipt();
 		return str;
 	}
 	virtual void accept(Visitor* v){
