@@ -542,6 +542,30 @@ TEST(Decorators, VeteranDecorator){
         EXPECT_EQ(VetDiscount->price(), 9.992);
         EXPECT_EQ(VetDiscount->receipt(), "Veteran Order:\nWING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
 }
+
+TEST(Decorators, EmployeeDecorator){
+        int sauce[3] = {0, 9, 0};
+        char fries[2] = {'R', 'S'};
+        int dipp[4] = {1, 4, 0, 0};
+
+        WingCount* nine = new WingCount(9);                                                                                                       WingSauce* bbq = new WingSauce(sauce);                                                                                                    FrySeasoning* regSeaSalt = new FrySeasoning(fries);
+        DippingSauce* dips = new DippingSauce(dipp);
+
+        EXPECT_DOUBLE_EQ(nine->price(), 9.00);
+        EXPECT_DOUBLE_EQ(bbq->price(), 0.90);
+        EXPECT_DOUBLE_EQ(regSeaSalt->price(), 1.59);                                                                                              EXPECT_DOUBLE_EQ(dips->price(), 1.00);
+
+        EXPECT_EQ(nine->receipt(), "9");
+        EXPECT_EQ(bbq->receipt(), "BBQ WINGS");
+        EXPECT_EQ(regSeaSalt->receipt(), "REG. FRIES w/ SEA SALT");
+        EXPECT_EQ(dips->receipt(), "+ 4 RANCH(ES)");                                                                                                                                                                                                                                        Wing* basket = new Wing(nine, bbq, regSeaSalt, dips);
+        EXPECT_DOUBLE_EQ(basket->price(), 12.49);
+        EXPECT_EQ(basket->receipt(), "WING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+
+        EmployeeDecorator* EmpDiscount = new EmployeeDecorator(basket);
+        EXPECT_EQ(EmpDiscount->price(), 6.245);
+        EXPECT_EQ(EmpDiscount->receipt(), "Employee Order:\nWING BASKET\n9 BBQ WINGS\nREG. FRIES w/ SEA SALT\n+ 4 RANCH(ES)");
+}
 	
 int main(int argc, char **argv){
 	::testing::InitGoogleTest(&argc, argv);

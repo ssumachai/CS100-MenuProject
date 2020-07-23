@@ -19,5 +19,6 @@
 #include "Composite/Decorators/StudentDecorator.hpp"
 #include "Composite/Decorators/SeniorDecorator.hpp"   
 #include "Composite/Decorators/VeteranDecorator.hpp"
+#include "Composite/Decorators/EmployeeDecorator.hpp"
 
 #endif // __INCLUDE_HPP__
